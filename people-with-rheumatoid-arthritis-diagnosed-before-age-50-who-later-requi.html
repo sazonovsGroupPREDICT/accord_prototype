@@ -1,0 +1,1507 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ACCORD report - people with rheumatoid arthritis diagnosed before age 50 who later required joint replacement and had CRP &gt; 50 at recruitment</title>
+  <style>
+    :root {
+      --ink: #121417;
+      --muted: #5f6670;
+      --paper: #ffffff;
+      --paper-strong: #ffffff;
+      --stroke: #e7e9ee;
+      --stroke-strong: #d7dbe3;
+      --shadow: 0 10px 30px rgba(17, 24, 39, 0.05);
+      --field: #285ea8;
+      --code: #9a4c35;
+      --encoding: #24756a;
+      --category: #7a6520;
+      --sun: #b7821f;
+      --ink-soft: #20242b;
+      --surface-soft: #f7f8fa;
+      --surface-softer: #fbfbfc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #ffffff;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: none;
+    }
+
+    .page {
+      width: min(1080px, calc(100vw - 40px));
+      margin: 32px auto 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .masthead {
+      display: flex;
+      justify-content: flex-start;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 0;
+      color: var(--ink-soft);
+    }
+
+    .brand {
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.95fr);
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      padding: 28px;
+    }
+
+    .hero-copy h1,
+    .section-heading h2,
+    .card-topline h2,
+    .bundle-card h2 {
+      margin: 0;
+      font-family: inherit;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-weight: 650;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2rem, 4.8vw, 3.25rem);
+      max-width: 15ch;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    .hero-copy p,
+    .lead,
+    .mini-card p,
+    .evidence-card p,
+    .filter-band,
+    .section-body p {
+      color: var(--muted);
+      line-height: 1.58;
+      margin: 0;
+    }
+
+    .metric-grid {
+      display: grid;
+      gap: 10px;
+      padding: 20px 20px 20px 0;
+      align-content: center;
+    }
+
+    .metric-card {
+      border-radius: 14px;
+      padding: 16px;
+      background: var(--surface-soft);
+      border: 1px solid var(--stroke);
+      min-height: 92px;
+    }
+
+    .metric-card.metric-field {
+      background: linear-gradient(180deg, rgba(40, 94, 168, 0.08), #fafbfc);
+    }
+
+    .metric-card.metric-code {
+      background: linear-gradient(180deg, rgba(154, 76, 53, 0.08), #fafbfc);
+    }
+
+    .metric-card.metric-encoding {
+      background: linear-gradient(180deg, rgba(36, 117, 106, 0.08), #fafbfc);
+    }
+
+    .metric-card.metric-sun {
+      background: linear-gradient(180deg, rgba(183, 130, 31, 0.09), #fafbfc);
+    }
+
+    .metric-value {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .metric-label {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .eyebrow,
+    .mini-kicker,
+    .subheading {
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .section-card {
+      padding: 24px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface-soft);
+      font-size: 0.82rem;
+      line-height: 1.2;
+    }
+
+    .chip-field {
+      border-color: rgba(23, 100, 204, 0.22);
+      color: var(--field);
+    }
+
+    .chip-code {
+      border-color: rgba(181, 78, 56, 0.24);
+      color: var(--code);
+    }
+
+    .chip-encoding {
+      border-color: rgba(14, 141, 119, 0.24);
+      color: var(--encoding);
+    }
+
+    .chip-category,
+    .chip-sun {
+      border-color: rgba(141, 106, 20, 0.24);
+      color: var(--category);
+    }
+
+    .chip-ink {
+      color: var(--ink-soft);
+    }
+
+    .bundle-stack,
+    .mini-grid,
+    .evidence-grid,
+    .filter-layout {
+      display: grid;
+      gap: 14px;
+    }
+
+    .bundle-stack {
+      gap: 18px;
+    }
+
+    .mini-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .filter-layout {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .diagram-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .diagram-stage {
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      background: var(--surface-softer);
+      padding: 16px;
+      min-height: 100%;
+    }
+
+    .diagram-stage h3 {
+      margin: 10px 0 10px;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .diagram-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid var(--stroke-strong);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .diagram-field {
+      border-color: rgba(40, 94, 168, 0.16);
+    }
+
+    .diagram-sun {
+      border-color: rgba(183, 130, 31, 0.18);
+    }
+
+    .diagram-encoding {
+      border-color: rgba(36, 117, 106, 0.16);
+    }
+
+    .diagram-code {
+      border-color: rgba(154, 76, 53, 0.16);
+    }
+
+    .diagram-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .diagram-list li + li {
+      margin-top: 6px;
+    }
+
+    .diagram-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #98a0ab;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .diagram-empty {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .bundle-card,
+    .mini-card,
+    .evidence-card,
+    .filter-band {
+      background: #ffffff;
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .bundle-card {
+      padding: 20px;
+    }
+
+    .bundle-card .lead {
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+
+    .card-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .mini-card h3,
+    .evidence-card h3 {
+      margin: 8px 0 10px;
+      font-size: 1.05rem;
+      line-height: 1.18;
+    }
+
+    .mini-meta {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .note-band {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-left: 3px solid rgba(183, 130, 31, 0.45);
+      background: #fcfaf4;
+      border-radius: 10px;
+      color: var(--ink-soft);
+    }
+
+    .card-subsection {
+      margin-top: 18px;
+    }
+
+    .bullet-list,
+    .step-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .compact-list {
+      margin-top: 10px;
+    }
+
+    .step-list li,
+    .bullet-list li {
+      margin-bottom: 8px;
+    }
+
+    .code-block {
+      overflow-x: auto;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      color: var(--ink);
+      border: 1px solid var(--stroke);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .code-preview-block {
+      margin-bottom: 12px;
+      border-style: dashed;
+    }
+
+    .code-detail {
+      border-top: 1px solid var(--stroke);
+      padding-top: 12px;
+    }
+
+    code {
+      font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+    }
+
+    .table-shell {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--stroke);
+      vertical-align: top;
+    }
+
+    th {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
+      border: 1px solid var(--stroke);
+      background: var(--surface-soft);
+      color: var(--ink-soft);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 140ms ease, background 140ms ease, color 140ms ease;
+    }
+
+    .filter-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .filter-button.is-active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #ffffff;
+    }
+
+    .evidence-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .evidence-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .evidence-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 2px;
+      background: var(--field);
+      opacity: 0.5;
+    }
+
+    .evidence-card[data-kind="code"]::before {
+      background: var(--code);
+    }
+
+    .evidence-card[data-kind="encoding"]::before {
+      background: var(--encoding);
+    }
+
+    .evidence-card[data-kind="category"]::before {
+      background: var(--category);
+    }
+
+    .score-tag {
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: var(--surface-soft);
+      font-size: 0.8rem;
+      color: var(--muted);
+      border: 1px solid var(--stroke);
+    }
+
+    .detail-shell summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+    }
+
+    .top-gap {
+      margin-top: 18px;
+    }
+
+    strong {
+      color: var(--ink);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        width: min(100vw - 20px, 1080px);
+        margin: 14px auto 32px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .metric-grid,
+      .section-card {
+        padding: 20px;
+      }
+
+      .metric-grid {
+        padding-top: 0;
+      }
+
+      .section-heading {
+        flex-direction: column;
+      }
+
+      .diagram-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .diagram-arrow {
+        min-height: 14px;
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="masthead">
+      <div class="brand">ACCORD UKB</div>
+    </div>
+    
+    <section class="panel hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Query Report</span>
+        <h1>people with rheumatoid arthritis diagnosed before age 50 who later required joint replacement and had CRP &gt; 50 at recruitment</h1>
+      </div>
+      <div class="metric-grid">
+    <article class="metric-card metric-sun">
+      <div class="metric-value">16</div>
+      <div class="metric-label">Evidence Hits</div>
+    </article>
+    
+    <article class="metric-card metric-field">
+      <div class="metric-value">14</div>
+      <div class="metric-label">Field Hits</div>
+    </article>
+    
+    <article class="metric-card metric-code">
+      <div class="metric-value">2</div>
+      <div class="metric-label">Code Hits</div>
+    </article>
+    
+    <article class="metric-card metric-encoding">
+      <div class="metric-value">5</div>
+      <div class="metric-label">Facets</div>
+    </article>
+    </div>
+    </section>
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Selection Diagram</h2>
+      </div>
+      <div class="section-body">
+        <div class="diagram-flow">
+    <article class="diagram-stage diagram-field">
+      <div class="diagram-step">1</div>
+      <h3>Conditions</h3>
+      <ul class="diagram-list"><li>rheumatoid</li><li>arthritis</li><li>age</li><li>joint</li><li>replacement</li></ul>
+    </article>
+    <div class="diagram-arrow" aria-hidden="true">→</div>
+    <article class="diagram-stage diagram-sun">
+      <div class="diagram-step">2</div>
+      <h3>Constraints</h3>
+      <ul class="diagram-list"><li>before age 50</li><li>Rheumatoid arthritis diagnosis/recorded at or before date of recruitment</li><li>Crp diagnosis/recorded at or before date of recruitment</li><li>C-reactive protein &gt; 50 at recruitment</li></ul>
+    </article>
+    <div class="diagram-arrow" aria-hidden="true">→</div>
+    <article class="diagram-stage diagram-encoding">
+      <div class="diagram-step">3</div>
+      <h3>Evidence anchors</h3>
+      <ul class="diagram-list"><li>F131848 Date M05 first reported (seropositive rheumatoid arthritis)</li><li>F131850 Date M06 first reported (other rheumatoid arthritis)</li><li>F30710 C-reactive protein</li><li>7140*</li><li>M05*</li></ul>
+    </article>
+    <div class="diagram-arrow" aria-hidden="true">→</div>
+    <article class="diagram-stage diagram-code">
+      <div class="diagram-step">4</div>
+      <h3>Selection logic</h3>
+      <ul class="diagram-list"><li>Find participants matching the main condition anchor</li><li>Apply age/date threshold from diagnosis timing evidence</li><li>Require downstream procedure or utilization signal</li><li>Apply biomarker or assay filter from measurement fields</li></ul>
+    </article>
+    </div>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Query Filters</h2>
+      </div>
+      <div class="filter-layout">
+        <article class="filter-band">
+          <div class="subheading">Primary concepts</div>
+          <div class="chip-row"><span class="chip chip-field">rheumatoid</span><span class="chip chip-field">arthritis</span><span class="chip chip-field">age</span><span class="chip chip-field">joint</span><span class="chip chip-field">replacement</span><span class="chip chip-field">CRP</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Temporal filters</div>
+          <div class="chip-row"><span class="chip chip-sun">before age 50</span><span class="chip chip-sun">Rheumatoid arthritis diagnosis/recorded at or before date of recruitment</span><span class="chip chip-sun">Crp diagnosis/recorded at or before date of recruitment</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Quantitative filters</div>
+          <div class="chip-row"><span class="chip chip-sun">C-reactive protein &gt; 50 at recruitment</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Phenotype filters</div>
+          <div class="chip-row"><span class="chip chip-ink">No phenotype filter extracted</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Exclusions</div>
+          <div class="chip-row"><span class="chip chip-ink">No exclusions</span></div>
+        </article>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>UKB RAP Download Starter</h2>
+      </div>
+      <div class="section-body">
+        
+        <p>Use this inside RAP to pull the exported phenotype file for the selected field set.</p>
+        <pre class="code-block code-preview-block"><code>from pathlib import Path
+import subprocess
+
+import dxpy
+
+QUERY_NAME = &#x27;people with rheumatoid arthritis diagnosed before age 50 who later required joint replacement and had CRP &gt; 50 at recruitment&#x27;
+FIELD_IDS = [34, 53, 20002, 20008, 20009, 21003, 21022, 30710, 30711, 30712, 30713, 30714, 30715, 30716, 41200, 41210, 41270, 41271, 41272, 41280, 41281, 41282, 131848, 131850]
+DX_FILE_ID = None
+DX_PROJECT_PATH = None  # e.g. &quot;project-xxxx:/Exports/people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi.tsv.gz&quot;
+LOCAL_EXPORT = Path(&quot;data/people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi.tsv.gz&quot;)
+EXPECTED_DELIMITER = &quot;\t&quot;
+</code></pre>
+        
+        <details class="detail-shell code-detail">
+          <summary>Expand full listing</summary>
+          <pre class="code-block"><code>from pathlib import Path
+import subprocess
+
+import dxpy
+
+QUERY_NAME = &#x27;people with rheumatoid arthritis diagnosed before age 50 who later required joint replacement and had CRP &gt; 50 at recruitment&#x27;
+FIELD_IDS = [34, 53, 20002, 20008, 20009, 21003, 21022, 30710, 30711, 30712, 30713, 30714, 30715, 30716, 41200, 41210, 41270, 41271, 41272, 41280, 41281, 41282, 131848, 131850]
+DX_FILE_ID = None
+DX_PROJECT_PATH = None  # e.g. &quot;project-xxxx:/Exports/people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi.tsv.gz&quot;
+LOCAL_EXPORT = Path(&quot;data/people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi.tsv.gz&quot;)
+EXPECTED_DELIMITER = &quot;\t&quot;
+
+# Suggested diagnosis fields: [20002, 41270, 41271]
+# Suggested diagnosis anchors: [20002, 41270, 41271, 41280, 41281, 131848, 131850]
+# Suggested diagnosis date fields: [41280, 41281, 131848, 131850]
+# Suggested diagnosis year fields: [20008]
+# Suggested disease-specific diagnosis dates: [131848, 131850]
+# Suggested birth year fields: [34]
+# Suggested recruitment date fields: [53]
+# Suggested recruitment age fields: [21003, 21022]
+# Suggested measurement fields: [30710]
+# Suggested measurement date fields: [30711]
+# Suggested measurement support fields: [30712, 30713, 30714, 30715, 30716]
+# Suggested procedure fields: [41200, 41210, 41272]
+# Suggested procedure anchors: [41200, 41210, 41272, 41282]
+# Suggested record-level access fields: []
+# - before age 50
+# - Rheumatoid arthritis diagnosis/recorded at or before date of recruitment
+# - Crp diagnosis/recorded at or before date of recruitment
+# - C-reactive protein &gt; 50 at recruitment
+
+def download_export(dx_file_id=DX_FILE_ID, project_path=DX_PROJECT_PATH, local_path=LOCAL_EXPORT):
+    local_path = Path(local_path)
+    local_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if dx_file_id:
+        dxpy.download_dxfile(dxid=dx_file_id, filename=str(local_path))
+    elif project_path:
+        subprocess.run([&quot;dx&quot;, &quot;download&quot;, project_path, &quot;-o&quot;, str(local_path)], check=True)
+    else:
+        raise ValueError(&quot;Set DX_FILE_ID or DX_PROJECT_PATH to the exported RAP phenotype file.&quot;)
+
+    return local_path
+
+
+if __name__ == &quot;__main__&quot;:
+    downloaded = download_export()
+    print(&quot;Downloaded:&quot;, downloaded)
+    print(&quot;Planned field IDs:&quot;, FIELD_IDS)
+</code></pre>
+        </details>
+        
+        
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Pandas Analysis Starter</h2>
+      </div>
+      <div class="section-body">
+        
+        <p>Use this after download to resolve field columns, keep the core timing anchors, and build a starter cohort dataframe.</p>
+        <pre class="code-block code-preview-block"><code>from pathlib import Path
+import re
+
+import pandas as pd
+
+DATA_PATH = Path(&quot;data/people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi.tsv.gz&quot;)
+DELIMITER = &quot;\t&quot;
+ID_COLUMN_CANDIDATES = [&quot;eid&quot;, &quot;participant.eid&quot;, &quot;f.eid&quot;, &quot;p.eid&quot;]
+
+FIELD_IDS = [34, 53, 20002, 20008, 20009, 21003, 21022, 30710, 30711, 30712, 30713, 30714, 30715, 30716, 41200, 41210, 41270, 41271, 41272, 41280, 41281, 41282, 131848, 131850]
+DIAGNOSIS_FIELD_IDS = [20002, 41270, 41271]
+DIAGNOSIS_ANCHOR_FIELD_IDS = [20002, 41270, 41271, 41280, 41281, 131848, 131850]</code></pre>
+        
+        <details class="detail-shell code-detail">
+          <summary>Expand full listing</summary>
+          <pre class="code-block"><code>from pathlib import Path
+import re
+
+import pandas as pd
+
+DATA_PATH = Path(&quot;data/people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi.tsv.gz&quot;)
+DELIMITER = &quot;\t&quot;
+ID_COLUMN_CANDIDATES = [&quot;eid&quot;, &quot;participant.eid&quot;, &quot;f.eid&quot;, &quot;p.eid&quot;]
+
+FIELD_IDS = [34, 53, 20002, 20008, 20009, 21003, 21022, 30710, 30711, 30712, 30713, 30714, 30715, 30716, 41200, 41210, 41270, 41271, 41272, 41280, 41281, 41282, 131848, 131850]
+DIAGNOSIS_FIELD_IDS = [20002, 41270, 41271]
+DIAGNOSIS_ANCHOR_FIELD_IDS = [20002, 41270, 41271, 41280, 41281, 131848, 131850]
+DIAGNOSIS_DATE_FIELD_IDS = [41280, 41281, 131848, 131850]
+DIAGNOSIS_SPECIFIC_DATE_FIELD_IDS = [131848, 131850]
+DIAGNOSIS_YEAR_FIELD_IDS = [20008]
+DIAGNOSIS_AGE_FIELD_IDS = [20009]
+BIRTH_YEAR_FIELD_IDS = [34]
+RECRUITMENT_DATE_FIELD_IDS = [53]
+RECRUITMENT_AGE_FIELD_IDS = [21003, 21022]
+MEASUREMENT_FIELD_IDS = [30710]
+MEASUREMENT_DATE_FIELD_IDS = [30711]
+MEASUREMENT_SUPPORT_FIELD_IDS = [30712, 30713, 30714, 30715, 30716]
+PROCEDURE_FIELD_IDS = [41200, 41210, 41272]
+PROCEDURE_ANCHOR_FIELD_IDS = [41200, 41210, 41272, 41282]
+PROCEDURE_DATE_FIELD_IDS = [41282]
+
+DIAGNOSIS_EXACT_CODES = [&#x27;1464&#x27;, &#x27;71423&#x27;, &#x27;71424&#x27;]
+DIAGNOSIS_PREFIXES = [&#x27;7140&#x27;, &#x27;M05&#x27;, &#x27;M06&#x27;]
+PROCEDURE_EXACT_CODES = [&#x27;O060&#x27;, &#x27;O061&#x27;, &#x27;O062&#x27;, &#x27;O063&#x27;, &#x27;O068&#x27;, &#x27;O069&#x27;, &#x27;O070&#x27;, &#x27;O071&#x27;, &#x27;O072&#x27;, &#x27;O073&#x27;, &#x27;O078&#x27;, &#x27;O079&#x27;, &#x27;O080&#x27;, &#x27;O081&#x27;, &#x27;O082&#x27;, &#x27;O083&#x27;, &#x27;O084&#x27;, &#x27;O088&#x27;, &#x27;O089&#x27;, &#x27;O180&#x27;, &#x27;O181&#x27;, &#x27;O182&#x27;, &#x27;O183&#x27;, &#x27;O184&#x27;, &#x27;O188&#x27;, &#x27;O189&#x27;, &#x27;O210&#x27;, &#x27;O211&#x27;, &#x27;O212&#x27;, &#x27;O213&#x27;, &#x27;O214&#x27;, &#x27;O218&#x27;, &#x27;O219&#x27;, &#x27;O220&#x27;, &#x27;O221&#x27;, &#x27;O222&#x27;, &#x27;O223&#x27;, &#x27;O224&#x27;, &#x27;O228&#x27;, &#x27;O229&#x27;, &#x27;O230&#x27;, &#x27;O231&#x27;, &#x27;O232&#x27;, &#x27;O233&#x27;, &#x27;O234&#x27;, &#x27;O235&#x27;, &#x27;O238&#x27;, &#x27;O239&#x27;, &#x27;O320&#x27;, &#x27;O321&#x27;, &#x27;O322&#x27;, &#x27;O323&#x27;, &#x27;O324&#x27;, &#x27;O325&#x27;, &#x27;O370&#x27;, &#x27;O371&#x27;, &#x27;O372&#x27;, &#x27;O378&#x27;, &#x27;O379&#x27;, &#x27;O380&#x27;, &#x27;O381&#x27;, &#x27;O382&#x27;, &#x27;O388&#x27;, &#x27;O389&#x27;, &#x27;O390&#x27;, &#x27;O391&#x27;, &#x27;O392&#x27;, &#x27;O393&#x27;, &#x27;O398&#x27;, &#x27;O399&#x27;, &#x27;O400&#x27;, &#x27;O401&#x27;, &#x27;O402&#x27;, &#x27;O403&#x27;, &#x27;O404&#x27;, &#x27;O408&#x27;, &#x27;O409&#x27;, &#x27;V201&#x27;, &#x27;V202&#x27;, &#x27;W370&#x27;, &#x27;W371&#x27;, &#x27;W372&#x27;, &#x27;W373&#x27;, &#x27;W374&#x27;, &#x27;W378&#x27;, &#x27;W379&#x27;, &#x27;W380&#x27;, &#x27;W381&#x27;, &#x27;W382&#x27;, &#x27;W383&#x27;, &#x27;W384&#x27;, &#x27;W388&#x27;, &#x27;W389&#x27;, &#x27;W390&#x27;, &#x27;W391&#x27;, &#x27;W392&#x27;, &#x27;W393&#x27;, &#x27;W394&#x27;, &#x27;W395&#x27;, &#x27;W396&#x27;, &#x27;W398&#x27;, &#x27;W399&#x27;, &#x27;W400&#x27;, &#x27;W401&#x27;, &#x27;W402&#x27;, &#x27;W403&#x27;, &#x27;W404&#x27;, &#x27;W408&#x27;, &#x27;W409&#x27;, &#x27;W410&#x27;, &#x27;W411&#x27;, &#x27;W412&#x27;, &#x27;W413&#x27;, &#x27;W414&#x27;, &#x27;W418&#x27;, &#x27;W419&#x27;, &#x27;W420&#x27;, &#x27;W421&#x27;, &#x27;W422&#x27;, &#x27;W423&#x27;, &#x27;W424&#x27;, &#x27;W425&#x27;, &#x27;W426&#x27;, &#x27;W428&#x27;, &#x27;W429&#x27;, &#x27;W430&#x27;, &#x27;W431&#x27;, &#x27;W432&#x27;, &#x27;W433&#x27;, &#x27;W434&#x27;, &#x27;W438&#x27;, &#x27;W439&#x27;, &#x27;W440&#x27;, &#x27;W441&#x27;, &#x27;W442&#x27;, &#x27;W443&#x27;, &#x27;W444&#x27;, &#x27;W448&#x27;, &#x27;W449&#x27;, &#x27;W450&#x27;, &#x27;W451&#x27;, &#x27;W452&#x27;, &#x27;W453&#x27;, &#x27;W454&#x27;, &#x27;W455&#x27;, &#x27;W458&#x27;, &#x27;W459&#x27;, &#x27;W591&#x27;, &#x27;W930&#x27;, &#x27;W931&#x27;, &#x27;W932&#x27;, &#x27;W933&#x27;, &#x27;W938&#x27;, &#x27;W939&#x27;, &#x27;W940&#x27;, &#x27;W941&#x27;, &#x27;W942&#x27;, &#x27;W943&#x27;, &#x27;W948&#x27;, &#x27;W949&#x27;, &#x27;W950&#x27;, &#x27;W951&#x27;, &#x27;W952&#x27;, &#x27;W953&#x27;, &#x27;W954&#x27;, &#x27;W958&#x27;, &#x27;W959&#x27;, &#x27;W960&#x27;, &#x27;W961&#x27;, &#x27;W962&#x27;, &#x27;W963&#x27;, &#x27;W964&#x27;, &#x27;W965&#x27;, &#x27;W966&#x27;, &#x27;W968&#x27;, &#x27;W969&#x27;, &#x27;W970&#x27;, &#x27;W971&#x27;, &#x27;W972&#x27;, &#x27;W973&#x27;, &#x27;W974&#x27;, &#x27;W975&#x27;, &#x27;W976&#x27;, &#x27;W978&#x27;, &#x27;W979&#x27;, &#x27;W980&#x27;, &#x27;W981&#x27;, &#x27;W982&#x27;, &#x27;W983&#x27;, &#x27;W984&#x27;, &#x27;W985&#x27;, &#x27;W986&#x27;, &#x27;W987&#x27;, &#x27;W988&#x27;, &#x27;W989&#x27;]
+PROCEDURE_PREFIXES = []
+
+AGE_LIMIT = 50
+SEQUENCE_REQUIRED = True
+MEASUREMENT_CONSTRAINT_LABEL = &#x27;C-reactive protein&#x27;
+MEASUREMENT_CONSTRAINT_OPERATOR = &#x27;&gt;&#x27;
+MEASUREMENT_CONSTRAINT_VALUE = 50.0
+CONDITION_RULES = []
+
+
+def load_table(path=DATA_PATH):
+    if str(path).endswith(&quot;.parquet&quot;):
+        return pd.read_parquet(path)
+    return pd.read_csv(path, sep=DELIMITER, low_memory=False)
+
+
+def columns_for_field(df, field_id):
+    patterns = [
+        re.compile(rf&quot;(^|[._]){field_id}([._]|$)&quot;, re.I),
+        re.compile(rf&quot;(^|[._])f[._]?{field_id}([._]|$)&quot;, re.I),
+        re.compile(rf&quot;(^|[._])p[._]?{field_id}([._]|$)&quot;, re.I),
+    ]
+    return [column for column in df.columns if any(pattern.search(column) for pattern in patterns)]
+
+
+def first_existing(columns, candidates):
+    for candidate in candidates:
+        if candidate in columns:
+            return candidate
+    return None
+
+
+def first_numeric(df, field_ids):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(pd.NA, index=df.index, dtype=&quot;float64&quot;), columns
+    values = df[columns].apply(pd.to_numeric, errors=&quot;coerce&quot;)
+    return values.min(axis=1), columns
+
+
+def first_datetime(df, field_ids):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(pd.NaT, index=df.index), columns
+    values = df[columns].apply(pd.to_datetime, errors=&quot;coerce&quot;)
+    return values.min(axis=1), columns
+
+
+def any_matching_code(df, field_ids, exact_codes=(), prefixes=()):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(False, index=df.index), columns
+
+    exact = {str(code).upper().strip() for code in exact_codes if str(code).strip()}
+    prefix_tuple = tuple(str(prefix).upper().strip() for prefix in prefixes if str(prefix).strip())
+    values = df[columns].fillna(&quot;&quot;).astype(str).apply(lambda col: col.str.upper().str.strip())
+    mask = pd.DataFrame(False, index=df.index, columns=columns)
+
+    if exact:
+        mask = mask | values.isin(exact)
+    if prefix_tuple:
+        mask = mask | values.apply(lambda col: col.str.startswith(prefix_tuple))
+
+    return mask.any(axis=1), columns
+
+
+def any_positive_flag(df, field_ids):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(False, index=df.index), columns
+
+    raw = df[columns]
+    numeric = raw.apply(pd.to_numeric, errors=&quot;coerce&quot;).gt(0).fillna(False)
+    text = raw.fillna(&quot;&quot;).astype(str).apply(lambda col: col.str.strip().str.lower())
+    text_mask = text.isin({&quot;1&quot;, &quot;1.0&quot;, &quot;yes&quot;, &quot;true&quot;, &quot;y&quot;, &quot;positive&quot;, &quot;present&quot;})
+    return (numeric | text_mask).any(axis=1), columns
+
+
+df = load_table()
+id_column = first_existing(df.columns, ID_COLUMN_CANDIDATES)
+
+diagnosis_case, diagnosis_code_columns = any_matching_code(
+    df,
+    DIAGNOSIS_FIELD_IDS,
+    exact_codes=DIAGNOSIS_EXACT_CODES,
+    prefixes=DIAGNOSIS_PREFIXES,
+)
+
+procedure_case, procedure_code_columns = any_matching_code(
+    df,
+    PROCEDURE_FIELD_IDS,
+    exact_codes=PROCEDURE_EXACT_CODES,
+    prefixes=PROCEDURE_PREFIXES,
+)
+
+diagnosis_date, diagnosis_date_columns = first_datetime(df, DIAGNOSIS_DATE_FIELD_IDS)
+diagnosis_specific_date, diagnosis_specific_date_columns = first_datetime(
+    df, DIAGNOSIS_SPECIFIC_DATE_FIELD_IDS
+)
+diagnosis_year, diagnosis_year_columns = first_numeric(df, DIAGNOSIS_YEAR_FIELD_IDS)
+procedure_date, procedure_date_columns = first_datetime(df, PROCEDURE_DATE_FIELD_IDS)
+diagnosis_age, diagnosis_age_columns = first_numeric(df, DIAGNOSIS_AGE_FIELD_IDS)
+birth_year, birth_year_columns = first_numeric(df, BIRTH_YEAR_FIELD_IDS)
+recruitment_date, recruitment_date_columns = first_datetime(df, RECRUITMENT_DATE_FIELD_IDS)
+recruitment_age, recruitment_age_columns = first_numeric(df, RECRUITMENT_AGE_FIELD_IDS)
+measurement_value, measurement_value_columns = first_numeric(df, MEASUREMENT_FIELD_IDS)
+measurement_date, measurement_date_columns = first_datetime(df, MEASUREMENT_DATE_FIELD_IDS)
+measurement_support_columns = [
+    column
+    for field_id in MEASUREMENT_SUPPORT_FIELD_IDS
+    for column in columns_for_field(df, field_id)
+]
+
+primary_diagnosis_date = diagnosis_specific_date.combine_first(diagnosis_date)
+derived_age_from_date = primary_diagnosis_date.dt.year - birth_year
+derived_age_from_year = diagnosis_year - birth_year
+age_at_diagnosis = diagnosis_age.combine_first(derived_age_from_date).combine_first(derived_age_from_year)
+
+if not diagnosis_case.any() and not (DIAGNOSIS_EXACT_CODES or DIAGNOSIS_PREFIXES):
+    diagnosis_case = diagnosis_specific_date.notna()
+
+if AGE_LIMIT is None:
+    age_mask = pd.Series(True, index=df.index)
+else:
+    age_mask = age_at_diagnosis.lt(AGE_LIMIT)
+
+if MEASUREMENT_CONSTRAINT_VALUE is None:
+    measurement_mask = pd.Series(True, index=df.index)
+else:
+    measurement_mask = measurement_value.notna()
+    if MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&gt;&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.gt(MEASUREMENT_CONSTRAINT_VALUE)
+    elif MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&gt;=&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.ge(MEASUREMENT_CONSTRAINT_VALUE)
+    elif MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&lt;&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.lt(MEASUREMENT_CONSTRAINT_VALUE)
+    elif MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&lt;=&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.le(MEASUREMENT_CONSTRAINT_VALUE)
+    else:
+        raise ValueError(&quot;Unsupported measurement operator: %r&quot; % (MEASUREMENT_CONSTRAINT_OPERATOR,))
+
+if CONDITION_RULES:
+    summary_values = {&quot;n_total&quot;: len(df)}
+    condition_masks = []
+    condition_selected_columns = []
+    condition_outputs = []
+
+    for index, rule in enumerate(CONDITION_RULES, start=1):
+        condition_code_mask, condition_code_columns = any_matching_code(
+            df,
+            rule.get(&quot;diagnosis_field_ids&quot;, []),
+            exact_codes=rule.get(&quot;exact_codes&quot;, ()),
+            prefixes=rule.get(&quot;prefixes&quot;, ()),
+        )
+        condition_anchor_mask, condition_anchor_columns = any_positive_flag(
+            df,
+            rule.get(&quot;anchor_field_ids&quot;, []),
+        )
+        condition_date, condition_date_columns = first_datetime(
+            df,
+            rule.get(&quot;date_field_ids&quot;, []),
+        )
+        condition_age, condition_age_columns = first_numeric(
+            df,
+            rule.get(&quot;age_field_ids&quot;, []),
+        )
+
+        condition_case = (
+            condition_code_mask
+            | condition_anchor_mask
+            | condition_date.notna()
+            | condition_age.notna()
+        )
+
+        relation = str(rule.get(&quot;relation&quot;, &quot;&quot;)).strip()
+        if relation == &quot;on_or_before_recruitment&quot;:
+            condition_temporal_mask = (
+                (condition_date.notna() &amp; recruitment_date.notna() &amp; condition_date.le(recruitment_date))
+                | (condition_age.notna() &amp; recruitment_age.notna() &amp; condition_age.le(recruitment_age))
+            )
+        elif relation == &quot;after_recruitment&quot;:
+            condition_temporal_mask = (
+                (condition_date.notna() &amp; recruitment_date.notna() &amp; condition_date.gt(recruitment_date))
+                | (condition_age.notna() &amp; recruitment_age.notna() &amp; condition_age.gt(recruitment_age))
+            )
+        else:
+            condition_temporal_mask = pd.Series(True, index=df.index)
+
+        if relation in {&quot;on_or_before_recruitment&quot;, &quot;after_recruitment&quot;} and not (
+            condition_date.notna().any() or condition_age.notna().any()
+        ):
+            print(&quot;Warning: no usable timing fields were configured for&quot;, rule.get(&quot;label&quot;, f&quot;condition_{index}&quot;))
+
+        label_slug = str(rule.get(&quot;slug&quot;) or f&quot;condition_{index}&quot;)
+        summary_values[f&quot;n_{label_slug}_case&quot;] = int(condition_case.sum())
+        summary_values[f&quot;n_{label_slug}_timeline_filtered&quot;] = int(
+            (condition_case &amp; condition_temporal_mask).sum()
+        )
+
+        condition_masks.append(condition_case &amp; condition_temporal_mask)
+        condition_selected_columns.extend(condition_code_columns)
+        condition_selected_columns.extend(condition_anchor_columns)
+        condition_selected_columns.extend(condition_date_columns)
+        condition_selected_columns.extend(condition_age_columns)
+        condition_outputs.append((label_slug, condition_date, condition_age))
+
+    timeline_mask = pd.Series(True, index=df.index)
+    for condition_mask in condition_masks:
+        timeline_mask = timeline_mask &amp; condition_mask
+
+    cohort_mask = timeline_mask &amp; measurement_mask
+    summary_values[&quot;n_timeline_filtered&quot;] = int(timeline_mask.sum())
+    summary_values[&quot;n_measurement_filtered&quot;] = int((timeline_mask &amp; measurement_mask).sum())
+    summary_values[&quot;n_cohort&quot;] = int(cohort_mask.sum())
+    summary = pd.Series(summary_values)
+    print(summary.to_string())
+
+    selected_columns = []
+    if id_column:
+        selected_columns.append(id_column)
+    selected_columns.extend(condition_selected_columns)
+    selected_columns.extend(birth_year_columns)
+    selected_columns.extend(recruitment_date_columns)
+    selected_columns.extend(recruitment_age_columns)
+    selected_columns.extend(measurement_value_columns)
+    selected_columns.extend(measurement_date_columns)
+    selected_columns.extend(measurement_support_columns)
+    selected_columns = list(dict.fromkeys(selected_columns))
+
+    cohort = df.loc[cohort_mask, selected_columns].copy()
+    for label_slug, condition_date, condition_age in condition_outputs:
+        if condition_date.notna().any():
+            cohort[f&quot;{label_slug}_date&quot;] = condition_date.loc[cohort_mask]
+        if condition_age.notna().any():
+            cohort[f&quot;{label_slug}_age&quot;] = condition_age.loc[cohort_mask]
+    if MEASUREMENT_CONSTRAINT_VALUE is not None:
+        cohort[&quot;measurement_value&quot;] = measurement_value.loc[cohort_mask]
+else:
+    if SEQUENCE_REQUIRED:
+        if procedure_date.notna().any() and primary_diagnosis_date.notna().any():
+            sequence_mask = (
+                procedure_date.notna()
+                &amp; primary_diagnosis_date.notna()
+                &amp; procedure_date.ge(primary_diagnosis_date)
+            )
+        else:
+            sequence_mask = pd.Series(False, index=df.index)
+            print(&quot;Warning: sequence requested but no usable procedure or diagnosis dates were configured.&quot;)
+    else:
+        sequence_mask = pd.Series(True, index=df.index)
+
+    cohort_mask = diagnosis_case &amp; age_mask &amp; measurement_mask &amp; procedure_case &amp; sequence_mask
+
+    summary = pd.Series(
+        {
+            &quot;n_total&quot;: len(df),
+            &quot;n_diagnosis_case&quot;: int(diagnosis_case.sum()),
+            &quot;n_age_filtered&quot;: int((diagnosis_case &amp; age_mask).sum()),
+            &quot;n_measurement_filtered&quot;: int((diagnosis_case &amp; age_mask &amp; measurement_mask).sum()),
+            &quot;n_procedure_case&quot;: int(procedure_case.sum()),
+            &quot;n_cohort&quot;: int(cohort_mask.sum()),
+        }
+    )
+    print(summary.to_string())
+
+    selected_columns = []
+    if id_column:
+        selected_columns.append(id_column)
+    selected_columns.extend(diagnosis_code_columns)
+    selected_columns.extend(diagnosis_date_columns)
+    selected_columns.extend(diagnosis_specific_date_columns)
+    selected_columns.extend(diagnosis_year_columns)
+    selected_columns.extend(diagnosis_age_columns)
+    selected_columns.extend(birth_year_columns)
+    selected_columns.extend(recruitment_date_columns)
+    selected_columns.extend(recruitment_age_columns)
+    selected_columns.extend(measurement_value_columns)
+    selected_columns.extend(measurement_date_columns)
+    selected_columns.extend(measurement_support_columns)
+    selected_columns.extend(procedure_code_columns)
+    selected_columns.extend(procedure_date_columns)
+    selected_columns = list(dict.fromkeys(selected_columns))
+
+    cohort = df.loc[cohort_mask, selected_columns].copy()
+    cohort[&quot;age_at_diagnosis&quot;] = age_at_diagnosis.loc[cohort_mask]
+    if MEASUREMENT_CONSTRAINT_VALUE is not None:
+        cohort[&quot;measurement_value&quot;] = measurement_value.loc[cohort_mask]
+
+output_dir = Path(&quot;results&quot;)
+output_dir.mkdir(parents=True, exist_ok=True)
+cohort.to_parquet(output_dir / &quot;people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi_cohort.parquet&quot;, index=False)
+summary.to_json(output_dir / &quot;people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi_summary.json&quot;, indent=2)
+
+print(&quot;Saved:&quot;, output_dir / &quot;people_with_rheumatoid_arthritis_diagnosed_before_age_50_who_later_requi_cohort.parquet&quot;)
+print(&quot;Selected columns:&quot;, selected_columns)
+
+# Procedure codes were pre-populated from the retrieved UKB context; validate against your final phenotype spec.
+</code></pre>
+        </details>
+        
+        
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Retrieval Facets</h2>
+      </div>
+      <div class="section-body">
+        <div class="mini-grid">
+            <article class="mini-card facet-card">
+              <div class="mini-kicker">HIGH</div>
+              <h3>diagnosis anchor</h3>
+              <p>Find direct case-definition fields and code families.</p>
+              <div class="chip-row"><span class="chip chip-field">rheumatoid arthritis age</span><span class="chip chip-field">arthritis age joint</span><span class="chip chip-field">age joint replacement</span><span class="chip chip-field">joint replacement CRP</span></div>
+              <div class="mini-meta">Prefers: field, code, encoding</div>
+            </article>
+            
+            <article class="mini-card facet-card">
+              <div class="mini-kicker">HIGH</div>
+              <h3>timing anchor</h3>
+              <p>Find fields that support baseline or recruitment timing comparisons for the requested conditions.</p>
+              <div class="chip-row"><span class="chip chip-field">before age 50</span><span class="chip chip-field">age at diagnosis</span><span class="chip chip-field">date of diagnosis</span><span class="chip chip-field">Rheumatoid arthritis diagnosis/recorded at or before date of recruitment</span><span class="chip chip-field">Crp diagnosis/recorded at or before date of recruitment</span></div>
+              <div class="mini-meta">Prefers: field, encoding</div>
+            </article>
+            
+            <article class="mini-card facet-card">
+              <div class="mini-kicker">LOW</div>
+              <h3>supporting context</h3>
+              <p>Keep taxonomy context that helps interpret the retrieved fields.</p>
+              <div class="chip-row"><span class="chip chip-field">rheumatoid arthritis age</span><span class="chip chip-field">arthritis age joint</span><span class="chip chip-field">age joint replacement</span></div>
+              <div class="mini-meta">Prefers: encoding, category</div>
+            </article>
+            
+            <article class="mini-card facet-card">
+              <div class="mini-kicker">HIGH</div>
+              <h3>procedure signal</h3>
+              <p>Find operation fields and procedure code families tied to the requested intervention.</p>
+              <div class="chip-row"><span class="chip chip-field">age joint replacement</span><span class="chip chip-field">joint replacement CRP</span><span class="chip chip-field">replacement CRP recruitment</span><span class="chip chip-field">joint replacement</span><span class="chip chip-field">replacement CRP</span></div>
+              <div class="mini-meta">Prefers: field, code, encoding</div>
+            </article>
+            
+            <article class="mini-card facet-card">
+              <div class="mini-kicker">HIGH</div>
+              <h3>measurement signal</h3>
+              <p>Find assay and biomarker fields needed for quantitative measurement filters.</p>
+              <div class="chip-row"><span class="chip chip-field">C-reactive protein</span><span class="chip chip-field">Biological samples &gt; Blood assays &gt; Blood biochemistry</span></div>
+              <div class="mini-meta">Prefers: field, category, encoding</div>
+            </article>
+            </div>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Suggested Fields</h2>
+      </div>
+      <div class="section-body">
+        <div class="mini-grid">
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F30711</div>
+              <h3>C-reactive protein assay date</h3>
+              <p>Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 43.64</span>
+              </div>
+              <p class="muted-copy">The date on which the C-reactive protein assay was carried out.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F30710</div>
+              <h3>C-reactive protein</h3>
+              <p>Biological samples &gt; Blood assays &gt; Blood biochemistry</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 42.50</span>
+              </div>
+              <p class="muted-copy">Measured by immunoturbidimetric - high sensitivity analysis on a Beckman Coulter AU5800</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F30712</div>
+              <h3>C-reactive protein aliquot</h3>
+              <p>Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">Biochemistry aliquot</span>
+                <span class="chip chip-sun">score 41.67</span>
+              </div>
+              <p class="muted-copy">The aliquout used for the C-reactive protein assay.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F30716</div>
+              <h3>C-reactive protein reportability</h3>
+              <p>Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">Reportability</span>
+                <span class="chip chip-sun">score 41.61</span>
+              </div>
+              <p class="muted-copy">The reportability of aC-reactive protein assay result. Absence of a value here means that a result has not been attempted.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F30714</div>
+              <h3>C-reactive protein correction reason</h3>
+              <p>Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">Reason for assay correction level</span>
+                <span class="chip chip-sun">score 41.06</span>
+              </div>
+              <p class="muted-copy">The reason for applying a correction to the C-reactive protein assay result.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F30715</div>
+              <h3>C-reactive protein missing reason</h3>
+              <p>Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">Reasons for lack of a measurement</span>
+                <span class="chip chip-sun">score 41.05</span>
+              </div>
+              <p class="muted-copy">The reason that a C-reactive protein assay result is missing.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F30713</div>
+              <h3>C-reactive protein correction level</h3>
+              <p>Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">Assay correction level</span>
+                <span class="chip chip-sun">score 41.04</span>
+              </div>
+              <p class="muted-copy">The type of post-measurement correction applied to the C-reactive protein assay result.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F131848</div>
+              <h3>Date M05 first reported (seropositive rheumatoid arthritis)</h3>
+              <p>Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Musculoskeletal system and connective tissue disorders</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">lumped event dates</span>
+                <span class="chip chip-sun">score 40.73</span>
+              </div>
+              <p class="muted-copy">Date of the first occurrence of any code mapped to 3-character ICD10 M05. The code corresponds to &quot;seropositive rheumatoid arthritis&quot;. Note that events which were apparently before birth were omitted when constructing this data field.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F131850</div>
+              <h3>Date M06 first reported (other rheumatoid arthritis)</h3>
+              <p>Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Musculoskeletal system and connective tissue disorders</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">lumped event dates</span>
+                <span class="chip chip-sun">score 40.73</span>
+              </div>
+              <p class="muted-copy">Date of the first occurrence of any code mapped to 3-character ICD10 M06. The code corresponds to &quot;other rheumatoid arthritis&quot;. Note that events which were apparently before birth were omitted when constructing this data field.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F41200</div>
+              <h3>Operative procedures - main OPCS4</h3>
+              <p>Health outcomes &gt; Externally sourced health outcomes &gt; Hospital inpatient &gt; Summary Operations</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">OPCS4 operation codes</span>
+                <span class="chip chip-sun">score 39.40</span>
+              </div>
+              <p class="muted-copy">This field is a summary of the main operation and procedure codes a participant has had recorded across all their hospital inpatient records. Operative procedures are coded according to the Office of Population Censuses and Surveys...</p>
+            </article>
+            </div>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Code Families</h2>
+      </div>
+      <div class="section-body">
+        <div class="mini-grid">
+            <article class="mini-card code-hit">
+              <div class="mini-kicker">Diagnosis prefixes</div>
+              <div class="chip-row"><span class="chip chip-code">7140*</span><span class="chip chip-code">M05*</span><span class="chip chip-code">M06*</span></div>
+            </article>
+            
+            <article class="mini-card code-hit">
+              <div class="mini-kicker">Diagnosis exact codes</div>
+              <div class="chip-row"><span class="chip chip-field">1464</span><span class="chip chip-field">71423</span><span class="chip chip-field">71424</span></div>
+            </article>
+            
+            <article class="mini-card code-hit">
+              <div class="mini-kicker">Procedure exact codes</div>
+              <div class="chip-row"><span class="chip chip-sun">O060</span><span class="chip chip-sun">O061</span><span class="chip chip-sun">O062</span><span class="chip chip-sun">O063</span><span class="chip chip-sun">O068</span><span class="chip chip-sun">O069</span><span class="chip chip-sun">O070</span><span class="chip chip-sun">O071</span><span class="chip chip-sun">O072</span><span class="chip chip-sun">O073</span></div>
+            </article>
+            </div>
+      </div>
+    </section>
+    
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Evidence Deck</h2>
+        <div class="toolbar" data-filter-toolbar="evidence-deck">
+        <button class="filter-button is-active" type="button" data-kind="all">
+          All
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="field">
+          Fields
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="code">
+          Codes
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="encoding">
+          Code Systems
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="category">
+          Categories
+        </button>
+        </div>
+      </div>
+      <div class="evidence-grid" data-evidence-group="evidence-deck">
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">43.64</span>
+          </div>
+          <h3>Field 30711 C-reactive protein assay date</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 30711</span><span class="chip chip-field">title: C-reactive protein assay date</span><span class="chip chip-field">path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 30711: C-reactive protein assay date Category path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing Encoding: NOT-ENCODED Units: Notes: The date on which the C-reactive protein assay was...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">42.50</span>
+          </div>
+          <h3>Field 30710 C-reactive protein</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 30710</span><span class="chip chip-field">title: C-reactive protein</span><span class="chip chip-field">path: Biological samples &gt; Blood assays &gt; Blood biochemistry</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 30710: C-reactive protein Category path: Biological samples &gt; Blood assays &gt; Blood biochemistry Encoding: NOT-ENCODED Units: mg/L Notes: Measured by immunoturbidimetric - high sensitivity analysis on a Beckman Coulter AU5800</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">41.67</span>
+          </div>
+          <h3>Field 30712 C-reactive protein aliquot</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 30712</span><span class="chip chip-field">title: C-reactive protein aliquot</span><span class="chip chip-field">path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</span><span class="chip chip-field">encoding_id: 1529</span></div>
+          <p>Field 30712: C-reactive protein aliquot Category path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing Encoding: Biochemistry aliquot Units: Notes: The aliquout used for the C-reactive protein assay.</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">41.61</span>
+          </div>
+          <h3>Field 30716 C-reactive protein reportability</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 30716</span><span class="chip chip-field">title: C-reactive protein reportability</span><span class="chip chip-field">path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</span><span class="chip chip-field">encoding_id: 4917</span></div>
+          <p>Field 30716: C-reactive protein reportability Category path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing Encoding: Reportability Units: Notes: The reportability of aC-reactive protein assay...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">41.06</span>
+          </div>
+          <h3>Field 30714 C-reactive protein correction reason</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 30714</span><span class="chip chip-field">title: C-reactive protein correction reason</span><span class="chip chip-field">path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</span><span class="chip chip-field">encoding_id: 305</span></div>
+          <p>Field 30714: C-reactive protein correction reason Category path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing Encoding: Reason for assay correction level Units: Notes: The reason for applying a...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">41.05</span>
+          </div>
+          <h3>Field 30715 C-reactive protein missing reason</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 30715</span><span class="chip chip-field">title: C-reactive protein missing reason</span><span class="chip chip-field">path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</span><span class="chip chip-field">encoding_id: 782</span></div>
+          <p>Field 30715: C-reactive protein missing reason Category path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing Encoding: Reasons for lack of a measurement Units: Notes: The reason that a C-reactive...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">41.04</span>
+          </div>
+          <h3>Field 30713 C-reactive protein correction level</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 30713</span><span class="chip chip-field">title: C-reactive protein correction level</span><span class="chip chip-field">path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing</span><span class="chip chip-field">encoding_id: 165</span></div>
+          <p>Field 30713: C-reactive protein correction level Category path: Biological samples &gt; Blood assays &gt; Blood biochemistry &gt; Blood biochemistry processing Encoding: Assay correction level Units: Notes: The type of post-measurement correction...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">40.73</span>
+          </div>
+          <h3>Field 131848 Date M05 first reported (seropositive rheumatoid arthritis)</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 131848</span><span class="chip chip-field">title: Date M05 first reported (seropositive rheumatoid arthritis)</span><span class="chip chip-field">path: Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Musculoskeletal system and connective tissue disorders</span><span class="chip chip-field">encoding_id: 819</span></div>
+          <p>Field 131848: Date M05 first reported (seropositive rheumatoid arthritis) Category path: Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Musculoskeletal system and connective tissue disorders Encoding: lumped...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">40.73</span>
+          </div>
+          <h3>Field 131850 Date M06 first reported (other rheumatoid arthritis)</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 131850</span><span class="chip chip-field">title: Date M06 first reported (other rheumatoid arthritis)</span><span class="chip chip-field">path: Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Musculoskeletal system and connective tissue disorders</span><span class="chip chip-field">encoding_id: 819</span></div>
+          <p>Field 131850: Date M06 first reported (other rheumatoid arthritis) Category path: Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Musculoskeletal system and connective tissue disorders Encoding: lumped event...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">39.40</span>
+          </div>
+          <h3>Field 41200 Operative procedures - main OPCS4</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 41200</span><span class="chip chip-field">title: Operative procedures - main OPCS4</span><span class="chip chip-field">path: Health outcomes &gt; Externally sourced health outcomes &gt; Hospital inpatient &gt; Summary Operations</span><span class="chip chip-field">encoding_id: 240</span></div>
+          <p>Field 41200: Operative procedures - main OPCS4 Category path: Health outcomes &gt; Externally sourced health outcomes &gt; Hospital inpatient &gt; Summary Operations Encoding: OPCS4 operation codes Units: Notes: This field is a summary of the main...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.09</span>
+          </div>
+          <h3>Code M05 M05 Seropositive rheumatoid arthritis</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: M05</span><span class="chip chip-code">meaning: M05 Seropositive rheumatoid arthritis</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: M05 Meaning: M05 Seropositive rheumatoid arthritis</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.09</span>
+          </div>
+          <h3>Code M06 M06 Other rheumatoid arthritis</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: M06</span><span class="chip chip-code">meaning: M06 Other rheumatoid arthritis</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: M06 Meaning: M06 Other rheumatoid arthritis</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">0.00</span>
+          </div>
+          <h3>Field 21003 Age when attended assessment centre</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 21003</span><span class="chip chip-field">title: Age when attended assessment centre</span><span class="chip chip-field">path: Assessment centre &gt; Recruitment &gt; Reception</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 21003: Age when attended assessment centre Category path: Assessment centre &gt; Recruitment &gt; Reception Encoding: NOT-ENCODED Units: years Notes: This is a derived variable based on date of birth and date of attending assessment...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">0.00</span>
+          </div>
+          <h3>Field 21022 Age at recruitment</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 21022</span><span class="chip chip-field">title: Age at recruitment</span><span class="chip chip-field">path: Population characteristics &gt; Baseline characteristics</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 21022: Age at recruitment Category path: Population characteristics &gt; Baseline characteristics Encoding: NOT-ENCODED Units: years Notes: This is a derived variable based on date of birth and date of attending an initial assessment...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">0.00</span>
+          </div>
+          <h3>Field 34 Year of birth</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 34</span><span class="chip chip-field">title: Year of birth</span><span class="chip chip-field">path: Population characteristics &gt; Baseline characteristics</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 34: Year of birth Category path: Population characteristics &gt; Baseline characteristics Encoding: NOT-ENCODED Units: years Notes: Year of birth of participant. Acquired from central registry, updated by participant.</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">0.00</span>
+          </div>
+          <h3>Field 53 Date of attending assessment centre</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 53</span><span class="chip chip-field">title: Date of attending assessment centre</span><span class="chip chip-field">path: Assessment centre &gt; Recruitment &gt; Reception</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 53: Date of attending assessment centre Category path: Assessment centre &gt; Recruitment &gt; Reception Encoding: NOT-ENCODED Units: Notes: Date when a participant attended a UK Biobank assessment centre. Automatically acquired at the...</p>
+        </article>
+        
+      </div>
+    </section>
+    
+    
+  </main>
+  <script>
+    document.querySelectorAll("[data-filter-toolbar]").forEach(function(toolbar) {
+      var targetName = toolbar.getAttribute("data-filter-toolbar");
+      var cards = document.querySelectorAll('[data-evidence-group="' + targetName + '"] [data-evidence-card]');
+      toolbar.querySelectorAll("button").forEach(function(button) {
+        button.addEventListener("click", function() {
+          var kind = button.getAttribute("data-kind");
+          toolbar.querySelectorAll("button").forEach(function(other) {
+            other.classList.remove("is-active");
+          });
+          button.classList.add("is-active");
+          cards.forEach(function(card) {
+            var cardKind = card.getAttribute("data-kind");
+            card.hidden = kind !== "all" && cardKind !== kind;
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

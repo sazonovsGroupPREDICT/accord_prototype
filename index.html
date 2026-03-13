@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ACCORD Prototype Showcase</title>
+  <style>
+    :root {
+      --ink: #121417;
+      --muted: #5f6670;
+      --paper: #ffffff;
+      --surface: #f6f7f9;
+      --stroke: #e5e7eb;
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
+      --radius: 22px;
+      --mono: "SFMono-Regular", Menlo, Consolas, monospace;
+      --sans: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      --ui: "Avenir Next", "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top right, rgba(239, 242, 246, 0.8), transparent 28%),
+        linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+      color: var(--ink);
+      font-family: var(--ui);
+      line-height: 1.55;
+    }
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 44px 24px 72px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+    .hero-panel,
+    .summary-panel,
+    .case-card,
+    .table-panel {
+      background: var(--paper);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-panel {
+      padding: 30px 30px 28px;
+      align-self: start;
+    }
+    .summary-panel {
+      padding: 24px;
+      align-self: start;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 4vw, 4rem);
+      line-height: 0.96;
+      font-family: var(--sans);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+    .hero-copy {
+      max-width: 16ch;
+      font-size: 1.04rem;
+      color: var(--muted);
+    }
+    .hero-list,
+    .logic-strip ol {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .hero-list li,
+    .logic-strip li {
+      margin: 0 0 8px;
+    }
+    .jump-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .jump-row a,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: #fff;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .jump-row a:hover,
+    .button:hover {
+      border-color: #c9cdd4;
+      transform: translateY(-1px);
+    }
+    .button-primary {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .summary-panel p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+    .summary-stack {
+      display: grid;
+      gap: 12px;
+    }
+    .summary-chip {
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      padding: 14px 16px;
+      background: var(--surface);
+    }
+    .summary-chip strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+    .cases {
+      display: grid;
+      gap: 22px;
+      margin-top: 28px;
+    }
+    .case-card {
+      padding: 26px;
+      border-color: var(--accent-border);
+      position: relative;
+      overflow: hidden;
+    }
+    .case-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8px;
+      background: var(--accent);
+    }
+    .case-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 6px;
+    }
+    .case-head h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 2.4vw, 2.2rem);
+      font-family: var(--sans);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .pattern-pill {
+      flex: none;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      font-size: 0.87rem;
+      font-weight: 700;
+    }
+    .query-line {
+      margin: 0 0 12px;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--muted);
+      word-break: break-word;
+    }
+    .hook {
+      margin: 0 0 18px;
+      font-size: 1.02rem;
+      color: var(--ink);
+      max-width: 70ch;
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .metric {
+      padding: 14px 16px;
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      background: #fff;
+    }
+    .metric-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .metric-label {
+      font-size: 0.84rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .logic-strip {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      margin-bottom: 16px;
+    }
+    .logic-kicker {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .detail-block {
+      padding: 16px 16px 14px;
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      background: #fff;
+    }
+    .detail-block h3 {
+      margin: 0 0 10px;
+      font-size: 0.94rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+    }
+    .chip-field {
+      background: #eef5ff;
+      border-color: #c9dbf6;
+      color: #24518f;
+    }
+    .chip-code {
+      background: #fff3ec;
+      border-color: #f0cdbb;
+      color: #91472d;
+    }
+    .chip-sun {
+      background: #fff8e9;
+      border-color: #ecd9a2;
+      color: #8d6511;
+    }
+    .chip-accent {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--accent);
+    }
+    .chip-muted {
+      background: var(--surface);
+      color: var(--muted);
+    }
+    .note {
+      margin: 0 0 16px;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .table-panel {
+      padding: 22px;
+      margin-top: 26px;
+    }
+    .table-panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.5rem;
+      font-family: var(--sans);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    th,
+    td {
+      text-align: left;
+      padding: 14px 12px;
+      border-top: 1px solid var(--stroke);
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .metric-grid,
+      .detail-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 720px) {
+      .page {
+        padding: 24px 16px 48px;
+      }
+      .metric-grid,
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+      .case-head {
+        flex-direction: column;
+      }
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr {
+        display: block;
+      }
+      thead {
+        display: none;
+      }
+      td {
+        padding: 10px 0;
+      }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-panel">
+        <div class="eyebrow">Demo showcase</div>
+        <h1>ACCORD Prototype Showcase</h1>
+        <div class="jump-row">
+          <a href="#people-with-who-already-had-asthma-at-recruitment-and-developped-psorias">Asthma Before Recruitment, Psoriasis After</a>
+          <a href="#people-with-crohn-s-disease-who-later-developed-a-perianal-fistula">Crohn&#x27;s Disease to Perianal Fistula</a>
+          <a href="#people-with-rheumatoid-arthritis-diagnosed-before-age-50-who-later-requi">Early RA, Joint Replacement, High CRP</a>
+        </div>
+      </div>
+      <aside class="summary-panel">
+        <div class="eyebrow">What this page shows</div>
+        <p>Each case study card summarizes the live generated field set, the main filters, the execution pattern, and direct links into the detailed HTML report plus RAP and pandas starters.</p>
+        <div class="summary-stack">
+          <div class="summary-chip">
+            <strong>Asthma / psoriasis</strong>
+            Shows the new split recruitment timeline logic.
+          </div>
+          <div class="summary-chip">
+            <strong>Crohn's / fistula</strong>
+            Shows a complication-sequence phenotype anchored on disease progression.
+          </div>
+          <div class="summary-chip">
+            <strong>RA / replacement / CRP</strong>
+            Shows the most demanding mixed timing, procedure, and biomarker query.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="cases">
+      
+    <section class="case-card" style="--accent:#1b7a6e;--accent-soft:#e8f6f3;--accent-border:#b9ddd6;" id="people-with-who-already-had-asthma-at-recruitment-and-developped-psorias">
+      <div class="case-head">
+        <div>
+          <div class="eyebrow">Query 01</div>
+          <h2>Asthma Before Recruitment, Psoriasis After</h2>
+        </div>
+        <div class="pattern-pill">Condition-specific recruitment timeline</div>
+      </div>
+      <p class="query-line">people with who already had asthma at recruitment and developped psoriasis after</p>
+      <p class="hook">A split-timeline cohort: prevalent asthma by recruitment, then incident psoriasis after baseline.</p>
+
+      <div class="metric-grid"><div class="metric"><div class="metric-value">13</div><div class="metric-label">Fields</div></div><div class="metric"><div class="metric-value">3</div><div class="metric-label">Diagnosis</div></div><div class="metric"><div class="metric-value">8</div><div class="metric-label">Timing</div></div><div class="metric"><div class="metric-value">Split timeline</div><div class="metric-label">Mode</div></div></div>
+
+      <div class="logic-strip">
+        <div class="logic-kicker">Logic sketch</div>
+        <ol><li>Anchor asthma on or before recruitment using diagnosis dates, age-at-diagnosis fields, and a clean yes/no doctor-diagnosed flag.</li><li>Use recruitment date and recruitment age as the comparison boundary.</li><li>Require psoriasis evidence after recruitment rather than collapsing both diseases into one pooled diagnosis date.</li></ol>
+      </div>
+
+      <div class="detail-grid">
+        <article class="detail-block">
+          <h3>Filters</h3>
+          <div class="chip-row"><span class="chip chip-sun">Asthma at or before recruitment</span><span class="chip chip-sun">Psoriasis after recruitment</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Current field highlights</h3>
+          <div class="chip-row"><span class="chip chip-field">F22127 Doctor diagnosed asthma</span><span class="chip chip-field">F42014 Date of asthma report</span><span class="chip chip-field">F131494 Date J45 first reported (asthma)</span><span class="chip chip-field">F131742 Date L40 first reported (psoriasis)</span><span class="chip chip-field">F3786 Age asthma diagnosed</span><span class="chip chip-field">F22147 Age asthma diagnosed by doctor</span><span class="chip chip-field">F53 Date of attending assessment centre</span><span class="chip chip-field">F21022 Age at recruitment</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Code highlights</h3>
+          <div class="chip-row"><span class="chip chip-code">1111</span><span class="chip chip-code">J45*</span><span class="chip chip-code">1453</span><span class="chip chip-code">L40*</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Timeline rules</h3>
+          <div class="chip-row"><span class="chip chip-accent">Asthma on or before recruitment</span><span class="chip chip-accent">Psoriasis after recruitment</span></div>
+        </article>
+      </div>
+
+      
+      <div class="link-row"><a class="button button-primary" href="people-with-who-already-had-asthma-at-recruitment-and-developped-psorias.html">Open report</a><a class="button" href="people-with-who-already-had-asthma-at-recruitment-and-developped-psorias/rap_download.py">RAP starter</a><a class="button" href="people-with-who-already-had-asthma-at-recruitment-and-developped-psorias/pandas_analysis.py">Pandas starter</a></div>
+    </section>
+    
+    <section class="case-card" style="--accent:#a34b2c;--accent-soft:#f9eee8;--accent-border:#e8cabd;" id="people-with-crohn-s-disease-who-later-developed-a-perianal-fistula">
+      <div class="case-head">
+        <div>
+          <div class="eyebrow">Query 02</div>
+          <h2>Crohn&#x27;s Disease to Perianal Fistula</h2>
+        </div>
+        <div class="pattern-pill">Sequence phenotype</div>
+      </div>
+      <p class="query-line">people with crohn&#x27;s disease who later developed a perianal fistula</p>
+      <p class="hook">A complication-sequence phenotype that starts with Crohn&#x27;s disease and looks for a later fistula outcome.</p>
+
+      <div class="metric-grid"><div class="metric"><div class="metric-value">8</div><div class="metric-label">Fields</div></div><div class="metric"><div class="metric-value">1</div><div class="metric-label">Diagnosis</div></div><div class="metric"><div class="metric-value">4</div><div class="metric-label">Timing</div></div><div class="metric"><div class="metric-value">Sequence</div><div class="metric-label">Mode</div></div></div>
+
+      <div class="logic-strip">
+        <div class="logic-kicker">Logic sketch</div>
+        <ol><li>Use Crohn&#x27;s disease diagnosis evidence as the entry anchor.</li><li>Keep first-occurrence and recruitment timing fields in the field pack so later refinement is possible inside RAP.</li><li>Treat perianal fistula as the downstream complication to be linked in the full report and starter code.</li></ol>
+      </div>
+
+      <div class="detail-grid">
+        <article class="detail-block">
+          <h3>Filters</h3>
+          <div class="chip-row"><span class="chip chip-sun">Crohn&#x27;s disease</span><span class="chip chip-sun">Perianal fistula after Crohn&#x27;s</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Current field highlights</h3>
+          <div class="chip-row"><span class="chip chip-field">F131626 Date K50 first reported (crohn&#x27;s disease [regional enteritis])</span><span class="chip chip-field">F41202 Diagnoses - main ICD10</span><span class="chip chip-field">F34 Year of birth</span><span class="chip chip-field">F53 Date of attending assessment centre</span><span class="chip chip-field">F21022 Age at recruitment</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Code highlights</h3>
+          <div class="chip-row"><span class="chip chip-code">K50*</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Timeline rules</h3>
+          <div class="chip-row"><span class="chip chip-accent">Sequence</span></div>
+        </article>
+      </div>
+
+      <p class="note">Most useful as a sequence-complication demo; the full report remains the place to inspect endpoint caveats.</p>
+      <div class="link-row"><a class="button button-primary" href="people-with-crohn-s-disease-who-later-developed-a-perianal-fistula.html">Open report</a><a class="button" href="people-with-crohn-s-disease-who-later-developed-a-perianal-fistula/rap_download.py">RAP starter</a><a class="button" href="people-with-crohn-s-disease-who-later-developed-a-perianal-fistula/pandas_analysis.py">Pandas starter</a></div>
+    </section>
+    
+    <section class="case-card" style="--accent:#996d12;--accent-soft:#fbf4df;--accent-border:#ead9a5;" id="people-with-rheumatoid-arthritis-diagnosed-before-age-50-who-later-requi">
+      <div class="case-head">
+        <div>
+          <div class="eyebrow">Query 03</div>
+          <h2>Early RA, Joint Replacement, High CRP</h2>
+        </div>
+        <div class="pattern-pill">Diagnosis + procedure + biomarker</div>
+      </div>
+      <p class="query-line">people with rheumatoid arthritis diagnosed before age 50 who later required joint replacement and had CRP &gt; 50 at recruitment</p>
+      <p class="hook">The heaviest example: diagnosis timing, downstream surgery, and a quantitative biomarker threshold in one cohort sketch.</p>
+
+      <div class="metric-grid"><div class="metric"><div class="metric-value">24</div><div class="metric-label">Fields</div></div><div class="metric"><div class="metric-value">3</div><div class="metric-label">Diagnosis</div></div><div class="metric"><div class="metric-value">9</div><div class="metric-label">Timing</div></div><div class="metric"><div class="metric-value">Multi-signal</div><div class="metric-label">Mode</div></div></div>
+
+      <div class="logic-strip">
+        <div class="logic-kicker">Logic sketch</div>
+        <ol><li>Define rheumatoid arthritis using self-report, ICD, and first-occurrence anchors and compute age at diagnosis.</li><li>Require joint replacement signals and enforce that the operation date follows the diagnosis date.</li><li>Apply a CRP threshold at recruitment using the assay value and assay-date support fields.</li></ol>
+      </div>
+
+      <div class="detail-grid">
+        <article class="detail-block">
+          <h3>Filters</h3>
+          <div class="chip-row"><span class="chip chip-sun">RA before age 50</span><span class="chip chip-sun">Joint replacement after diagnosis</span><span class="chip chip-sun">CRP &gt; 50 at recruitment</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Current field highlights</h3>
+          <div class="chip-row"><span class="chip chip-field">F20002 Non-cancer illness code, self-reported</span><span class="chip chip-field">F131848 Date M05 first reported (seropositive rheumatoid arthritis)</span><span class="chip chip-field">F131850 Date M06 first reported (other rheumatoid arthritis)</span><span class="chip chip-field">F41200 Operative procedures - main OPCS4</span><span class="chip chip-field">F41282 Date of first operative procedure - OPCS4</span><span class="chip chip-field">F30710 C-reactive protein</span><span class="chip chip-field">F30711 C-reactive protein assay date</span><span class="chip chip-field">F53 Date of attending assessment centre</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Code highlights</h3>
+          <div class="chip-row"><span class="chip chip-code">1464</span><span class="chip chip-code">M05*</span><span class="chip chip-code">M06*</span><span class="chip chip-code">7140*</span><span class="chip chip-code">CRP &gt; 50</span><span class="chip chip-code">C-reactive protein &gt; 50</span></div>
+        </article>
+        <article class="detail-block">
+          <h3>Timeline rules</h3>
+          <div class="chip-row"><span class="chip chip-accent">Multi-signal</span></div>
+        </article>
+      </div>
+
+      
+      <div class="link-row"><a class="button button-primary" href="people-with-rheumatoid-arthritis-diagnosed-before-age-50-who-later-requi.html">Open report</a><a class="button" href="people-with-rheumatoid-arthritis-diagnosed-before-age-50-who-later-requi/rap_download.py">RAP starter</a><a class="button" href="people-with-rheumatoid-arthritis-diagnosed-before-age-50-who-later-requi/pandas_analysis.py">Pandas starter</a></div>
+    </section>
+    
+    </section>
+
+    <section class="table-panel">
+      <div class="eyebrow">Comparison</div>
+      <h2>Case study snapshot</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Query</th>
+            <th>Execution mode</th>
+            <th>Primary filters</th>
+            <th>Field anchors</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Query">Asthma Before Recruitment, Psoriasis After</td><td data-label="Execution mode">Split timeline</td><td data-label="Primary filters">Asthma at or before recruitment, Psoriasis after recruitment</td><td data-label="Field anchors">F22127, F42014, F131494, F131742</td></tr><tr><td data-label="Query">Crohn&#x27;s Disease to Perianal Fistula</td><td data-label="Execution mode">Sequence</td><td data-label="Primary filters">Crohn&#x27;s disease, Perianal fistula after Crohn&#x27;s</td><td data-label="Field anchors">F131626, F41202, F34, F53</td></tr><tr><td data-label="Query">Early RA, Joint Replacement, High CRP</td><td data-label="Execution mode">Multi-signal</td><td data-label="Primary filters">RA before age 50, Joint replacement after diagnosis</td><td data-label="Field anchors">F20002, F131848, F131850, F41200</td></tr>
+        </tbody>
+      </table>
+      <p class="footer">Generated from the current example reports on 2026-03-13.</p>
+    </section>
+  </main>
+</body>
+</html>

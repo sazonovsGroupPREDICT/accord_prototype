@@ -1,0 +1,1469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ACCORD report - people with crohn&#x27;s disease who later developed a perianal fistula</title>
+  <style>
+    :root {
+      --ink: #121417;
+      --muted: #5f6670;
+      --paper: #ffffff;
+      --paper-strong: #ffffff;
+      --stroke: #e7e9ee;
+      --stroke-strong: #d7dbe3;
+      --shadow: 0 10px 30px rgba(17, 24, 39, 0.05);
+      --field: #285ea8;
+      --code: #9a4c35;
+      --encoding: #24756a;
+      --category: #7a6520;
+      --sun: #b7821f;
+      --ink-soft: #20242b;
+      --surface-soft: #f7f8fa;
+      --surface-softer: #fbfbfc;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #ffffff;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: none;
+    }
+
+    .page {
+      width: min(1080px, calc(100vw - 40px));
+      margin: 32px auto 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .masthead {
+      display: flex;
+      justify-content: flex-start;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 0;
+      color: var(--ink-soft);
+    }
+
+    .brand {
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .panel {
+      background: var(--paper);
+      border: 1px solid var(--stroke);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.95fr);
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .hero-copy {
+      padding: 28px;
+    }
+
+    .hero-copy h1,
+    .section-heading h2,
+    .card-topline h2,
+    .bundle-card h2 {
+      margin: 0;
+      font-family: inherit;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      font-weight: 650;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2rem, 4.8vw, 3.25rem);
+      max-width: 15ch;
+      margin-top: 10px;
+      margin-bottom: 12px;
+    }
+
+    .hero-copy p,
+    .lead,
+    .mini-card p,
+    .evidence-card p,
+    .filter-band,
+    .section-body p {
+      color: var(--muted);
+      line-height: 1.58;
+      margin: 0;
+    }
+
+    .metric-grid {
+      display: grid;
+      gap: 10px;
+      padding: 20px 20px 20px 0;
+      align-content: center;
+    }
+
+    .metric-card {
+      border-radius: 14px;
+      padding: 16px;
+      background: var(--surface-soft);
+      border: 1px solid var(--stroke);
+      min-height: 92px;
+    }
+
+    .metric-card.metric-field {
+      background: linear-gradient(180deg, rgba(40, 94, 168, 0.08), #fafbfc);
+    }
+
+    .metric-card.metric-code {
+      background: linear-gradient(180deg, rgba(154, 76, 53, 0.08), #fafbfc);
+    }
+
+    .metric-card.metric-encoding {
+      background: linear-gradient(180deg, rgba(36, 117, 106, 0.08), #fafbfc);
+    }
+
+    .metric-card.metric-sun {
+      background: linear-gradient(180deg, rgba(183, 130, 31, 0.09), #fafbfc);
+    }
+
+    .metric-value {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .metric-label {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .eyebrow,
+    .mini-kicker,
+    .subheading {
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .section-card {
+      padding: 24px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface-soft);
+      font-size: 0.82rem;
+      line-height: 1.2;
+    }
+
+    .chip-field {
+      border-color: rgba(23, 100, 204, 0.22);
+      color: var(--field);
+    }
+
+    .chip-code {
+      border-color: rgba(181, 78, 56, 0.24);
+      color: var(--code);
+    }
+
+    .chip-encoding {
+      border-color: rgba(14, 141, 119, 0.24);
+      color: var(--encoding);
+    }
+
+    .chip-category,
+    .chip-sun {
+      border-color: rgba(141, 106, 20, 0.24);
+      color: var(--category);
+    }
+
+    .chip-ink {
+      color: var(--ink-soft);
+    }
+
+    .bundle-stack,
+    .mini-grid,
+    .evidence-grid,
+    .filter-layout {
+      display: grid;
+      gap: 14px;
+    }
+
+    .bundle-stack {
+      gap: 18px;
+    }
+
+    .mini-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .filter-layout {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .diagram-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .diagram-stage {
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      background: var(--surface-softer);
+      padding: 16px;
+      min-height: 100%;
+    }
+
+    .diagram-stage h3 {
+      margin: 10px 0 10px;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .diagram-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid var(--stroke-strong);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .diagram-field {
+      border-color: rgba(40, 94, 168, 0.16);
+    }
+
+    .diagram-sun {
+      border-color: rgba(183, 130, 31, 0.18);
+    }
+
+    .diagram-encoding {
+      border-color: rgba(36, 117, 106, 0.16);
+    }
+
+    .diagram-code {
+      border-color: rgba(154, 76, 53, 0.16);
+    }
+
+    .diagram-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink-soft);
+      line-height: 1.55;
+    }
+
+    .diagram-list li + li {
+      margin-top: 6px;
+    }
+
+    .diagram-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #98a0ab;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .diagram-empty {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .bundle-card,
+    .mini-card,
+    .evidence-card,
+    .filter-band {
+      background: #ffffff;
+      border: 1px solid var(--stroke);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .bundle-card {
+      padding: 20px;
+    }
+
+    .bundle-card .lead {
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+
+    .card-topline {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .mini-card h3,
+    .evidence-card h3 {
+      margin: 8px 0 10px;
+      font-size: 1.05rem;
+      line-height: 1.18;
+    }
+
+    .mini-meta {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .note-band {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-left: 3px solid rgba(183, 130, 31, 0.45);
+      background: #fcfaf4;
+      border-radius: 10px;
+      color: var(--ink-soft);
+    }
+
+    .card-subsection {
+      margin-top: 18px;
+    }
+
+    .bullet-list,
+    .step-list {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .compact-list {
+      margin-top: 10px;
+    }
+
+    .step-list li,
+    .bullet-list li {
+      margin-bottom: 8px;
+    }
+
+    .code-block {
+      overflow-x: auto;
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      color: var(--ink);
+      border: 1px solid var(--stroke);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .code-preview-block {
+      margin-bottom: 12px;
+      border-style: dashed;
+    }
+
+    .code-detail {
+      border-top: 1px solid var(--stroke);
+      padding-top: 12px;
+    }
+
+    code {
+      font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+    }
+
+    .table-shell {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--stroke);
+      vertical-align: top;
+    }
+
+    th {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
+      border: 1px solid var(--stroke);
+      background: var(--surface-soft);
+      color: var(--ink-soft);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 140ms ease, background 140ms ease, color 140ms ease;
+    }
+
+    .filter-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .filter-button.is-active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #ffffff;
+    }
+
+    .evidence-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .evidence-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .evidence-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 2px;
+      background: var(--field);
+      opacity: 0.5;
+    }
+
+    .evidence-card[data-kind="code"]::before {
+      background: var(--code);
+    }
+
+    .evidence-card[data-kind="encoding"]::before {
+      background: var(--encoding);
+    }
+
+    .evidence-card[data-kind="category"]::before {
+      background: var(--category);
+    }
+
+    .score-tag {
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: var(--surface-soft);
+      font-size: 0.8rem;
+      color: var(--muted);
+      border: 1px solid var(--stroke);
+    }
+
+    .detail-shell summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+    }
+
+    .top-gap {
+      margin-top: 18px;
+    }
+
+    strong {
+      color: var(--ink);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        width: min(100vw - 20px, 1080px);
+        margin: 14px auto 32px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .metric-grid,
+      .section-card {
+        padding: 20px;
+      }
+
+      .metric-grid {
+        padding-top: 0;
+      }
+
+      .section-heading {
+        flex-direction: column;
+      }
+
+      .diagram-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .diagram-arrow {
+        min-height: 14px;
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="masthead">
+      <div class="brand">ACCORD UKB</div>
+    </div>
+    
+    <section class="panel hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Query Report</span>
+        <h1>people with crohn&#x27;s disease who later developed a perianal fistula</h1>
+      </div>
+      <div class="metric-grid">
+    <article class="metric-card metric-sun">
+      <div class="metric-value">17</div>
+      <div class="metric-label">Evidence Hits</div>
+    </article>
+    
+    <article class="metric-card metric-field">
+      <div class="metric-value">8</div>
+      <div class="metric-label">Field Hits</div>
+    </article>
+    
+    <article class="metric-card metric-code">
+      <div class="metric-value">9</div>
+      <div class="metric-label">Code Hits</div>
+    </article>
+    
+    <article class="metric-card metric-encoding">
+      <div class="metric-value">2</div>
+      <div class="metric-label">Facets</div>
+    </article>
+    </div>
+    </section>
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Selection Diagram</h2>
+      </div>
+      <div class="section-body">
+        <div class="diagram-flow">
+    <article class="diagram-stage diagram-field">
+      <div class="diagram-step">1</div>
+      <h3>Conditions</h3>
+      <ul class="diagram-list"><li>crohn&#x27;s</li><li>disease</li><li>developed</li><li>perianal</li><li>fistula</li></ul>
+    </article>
+    <div class="diagram-arrow" aria-hidden="true">→</div>
+    <article class="diagram-stage diagram-sun">
+      <div class="diagram-step">2</div>
+      <h3>Constraints</h3>
+      <p class="diagram-empty">No explicit items extracted.</p>
+    </article>
+    <div class="diagram-arrow" aria-hidden="true">→</div>
+    <article class="diagram-stage diagram-encoding">
+      <div class="diagram-step">3</div>
+      <h3>Evidence anchors</h3>
+      <ul class="diagram-list"><li>F131626 Date K50 first reported (crohn&#x27;s disease [regional enteritis])</li><li>K50*</li><li>K500*</li></ul>
+    </article>
+    <div class="diagram-arrow" aria-hidden="true">→</div>
+    <article class="diagram-stage diagram-code">
+      <div class="diagram-step">4</div>
+      <h3>Selection logic</h3>
+      <ul class="diagram-list"><li>Find participants matching the main condition anchor</li></ul>
+    </article>
+    </div>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Query Filters</h2>
+      </div>
+      <div class="filter-layout">
+        <article class="filter-band">
+          <div class="subheading">Primary concepts</div>
+          <div class="chip-row"><span class="chip chip-field">crohn&#x27;s</span><span class="chip chip-field">disease</span><span class="chip chip-field">developed</span><span class="chip chip-field">perianal</span><span class="chip chip-field">fistula</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Temporal filters</div>
+          <div class="chip-row"><span class="chip chip-ink">No explicit temporal filter</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Quantitative filters</div>
+          <div class="chip-row"><span class="chip chip-ink">No quantitative filter extracted</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Phenotype filters</div>
+          <div class="chip-row"><span class="chip chip-ink">No phenotype filter extracted</span></div>
+        </article>
+        <article class="filter-band">
+          <div class="subheading">Exclusions</div>
+          <div class="chip-row"><span class="chip chip-ink">No exclusions</span></div>
+        </article>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>UKB RAP Download Starter</h2>
+      </div>
+      <div class="section-body">
+        
+        <p>Use this inside RAP to pull the exported phenotype file for the selected field set.</p>
+        <pre class="code-block code-preview-block"><code>from pathlib import Path
+import subprocess
+
+import dxpy
+
+QUERY_NAME = &quot;people with crohn&#x27;s disease who later developed a perianal fistula&quot;
+FIELD_IDS = [34, 53, 21003, 21022, 26229, 26230, 41202, 131626]
+DX_FILE_ID = None
+DX_PROJECT_PATH = None  # e.g. &quot;project-xxxx:/Exports/people_with_crohn_s_disease_who_later_developed_a_perianal_fistula.tsv.gz&quot;
+LOCAL_EXPORT = Path(&quot;data/people_with_crohn_s_disease_who_later_developed_a_perianal_fistula.tsv.gz&quot;)
+EXPECTED_DELIMITER = &quot;\t&quot;
+</code></pre>
+        
+        <details class="detail-shell code-detail">
+          <summary>Expand full listing</summary>
+          <pre class="code-block"><code>from pathlib import Path
+import subprocess
+
+import dxpy
+
+QUERY_NAME = &quot;people with crohn&#x27;s disease who later developed a perianal fistula&quot;
+FIELD_IDS = [34, 53, 21003, 21022, 26229, 26230, 41202, 131626]
+DX_FILE_ID = None
+DX_PROJECT_PATH = None  # e.g. &quot;project-xxxx:/Exports/people_with_crohn_s_disease_who_later_developed_a_perianal_fistula.tsv.gz&quot;
+LOCAL_EXPORT = Path(&quot;data/people_with_crohn_s_disease_who_later_developed_a_perianal_fistula.tsv.gz&quot;)
+EXPECTED_DELIMITER = &quot;\t&quot;
+
+# Suggested diagnosis fields: [41202]
+# Suggested diagnosis anchors: [26229, 26230, 41202, 131626]
+# Suggested diagnosis date fields: [131626]
+# Suggested diagnosis year fields: []
+# Suggested disease-specific diagnosis dates: []
+# Suggested birth year fields: [34]
+# Suggested recruitment date fields: [53]
+# Suggested recruitment age fields: [21003, 21022]
+# Suggested measurement fields: []
+# Suggested measurement date fields: []
+# Suggested measurement support fields: []
+# Suggested procedure fields: []
+# Suggested procedure anchors: []
+# Suggested record-level access fields: []
+# No additional notes were captured for this query.
+
+def download_export(dx_file_id=DX_FILE_ID, project_path=DX_PROJECT_PATH, local_path=LOCAL_EXPORT):
+    local_path = Path(local_path)
+    local_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if dx_file_id:
+        dxpy.download_dxfile(dxid=dx_file_id, filename=str(local_path))
+    elif project_path:
+        subprocess.run([&quot;dx&quot;, &quot;download&quot;, project_path, &quot;-o&quot;, str(local_path)], check=True)
+    else:
+        raise ValueError(&quot;Set DX_FILE_ID or DX_PROJECT_PATH to the exported RAP phenotype file.&quot;)
+
+    return local_path
+
+
+if __name__ == &quot;__main__&quot;:
+    downloaded = download_export()
+    print(&quot;Downloaded:&quot;, downloaded)
+    print(&quot;Planned field IDs:&quot;, FIELD_IDS)
+</code></pre>
+        </details>
+        
+        
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Pandas Analysis Starter</h2>
+      </div>
+      <div class="section-body">
+        
+        <p>Use this after download to resolve field columns, keep the core timing anchors, and build a starter cohort dataframe.</p>
+        <pre class="code-block code-preview-block"><code>from pathlib import Path
+import re
+
+import pandas as pd
+
+DATA_PATH = Path(&quot;data/people_with_crohn_s_disease_who_later_developed_a_perianal_fistula.tsv.gz&quot;)
+DELIMITER = &quot;\t&quot;
+ID_COLUMN_CANDIDATES = [&quot;eid&quot;, &quot;participant.eid&quot;, &quot;f.eid&quot;, &quot;p.eid&quot;]
+
+FIELD_IDS = [34, 53, 21003, 21022, 26229, 26230, 41202, 131626]
+DIAGNOSIS_FIELD_IDS = [41202]
+DIAGNOSIS_ANCHOR_FIELD_IDS = [26229, 26230, 41202, 131626]</code></pre>
+        
+        <details class="detail-shell code-detail">
+          <summary>Expand full listing</summary>
+          <pre class="code-block"><code>from pathlib import Path
+import re
+
+import pandas as pd
+
+DATA_PATH = Path(&quot;data/people_with_crohn_s_disease_who_later_developed_a_perianal_fistula.tsv.gz&quot;)
+DELIMITER = &quot;\t&quot;
+ID_COLUMN_CANDIDATES = [&quot;eid&quot;, &quot;participant.eid&quot;, &quot;f.eid&quot;, &quot;p.eid&quot;]
+
+FIELD_IDS = [34, 53, 21003, 21022, 26229, 26230, 41202, 131626]
+DIAGNOSIS_FIELD_IDS = [41202]
+DIAGNOSIS_ANCHOR_FIELD_IDS = [26229, 26230, 41202, 131626]
+DIAGNOSIS_DATE_FIELD_IDS = [131626]
+DIAGNOSIS_SPECIFIC_DATE_FIELD_IDS = []
+DIAGNOSIS_YEAR_FIELD_IDS = []
+DIAGNOSIS_AGE_FIELD_IDS = []
+BIRTH_YEAR_FIELD_IDS = [34]
+RECRUITMENT_DATE_FIELD_IDS = [53]
+RECRUITMENT_AGE_FIELD_IDS = [21003, 21022]
+MEASUREMENT_FIELD_IDS = []
+MEASUREMENT_DATE_FIELD_IDS = []
+MEASUREMENT_SUPPORT_FIELD_IDS = []
+PROCEDURE_FIELD_IDS = []
+PROCEDURE_ANCHOR_FIELD_IDS = []
+PROCEDURE_DATE_FIELD_IDS = []
+
+DIAGNOSIS_EXACT_CODES = []
+DIAGNOSIS_PREFIXES = [&#x27;K50&#x27;, &#x27;K500&#x27;, &#x27;K501&#x27;, &#x27;K508&#x27;, &#x27;K509&#x27;, &#x27;M074&#x27;, &#x27;M0743&#x27;, &#x27;M0744&#x27;, &#x27;M0748&#x27;]
+PROCEDURE_EXACT_CODES = []
+PROCEDURE_PREFIXES = []
+
+AGE_LIMIT = None
+SEQUENCE_REQUIRED = True
+MEASUREMENT_CONSTRAINT_LABEL = None
+MEASUREMENT_CONSTRAINT_OPERATOR = None
+MEASUREMENT_CONSTRAINT_VALUE = None
+CONDITION_RULES = []
+
+
+def load_table(path=DATA_PATH):
+    if str(path).endswith(&quot;.parquet&quot;):
+        return pd.read_parquet(path)
+    return pd.read_csv(path, sep=DELIMITER, low_memory=False)
+
+
+def columns_for_field(df, field_id):
+    patterns = [
+        re.compile(rf&quot;(^|[._]){field_id}([._]|$)&quot;, re.I),
+        re.compile(rf&quot;(^|[._])f[._]?{field_id}([._]|$)&quot;, re.I),
+        re.compile(rf&quot;(^|[._])p[._]?{field_id}([._]|$)&quot;, re.I),
+    ]
+    return [column for column in df.columns if any(pattern.search(column) for pattern in patterns)]
+
+
+def first_existing(columns, candidates):
+    for candidate in candidates:
+        if candidate in columns:
+            return candidate
+    return None
+
+
+def first_numeric(df, field_ids):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(pd.NA, index=df.index, dtype=&quot;float64&quot;), columns
+    values = df[columns].apply(pd.to_numeric, errors=&quot;coerce&quot;)
+    return values.min(axis=1), columns
+
+
+def first_datetime(df, field_ids):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(pd.NaT, index=df.index), columns
+    values = df[columns].apply(pd.to_datetime, errors=&quot;coerce&quot;)
+    return values.min(axis=1), columns
+
+
+def any_matching_code(df, field_ids, exact_codes=(), prefixes=()):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(False, index=df.index), columns
+
+    exact = {str(code).upper().strip() for code in exact_codes if str(code).strip()}
+    prefix_tuple = tuple(str(prefix).upper().strip() for prefix in prefixes if str(prefix).strip())
+    values = df[columns].fillna(&quot;&quot;).astype(str).apply(lambda col: col.str.upper().str.strip())
+    mask = pd.DataFrame(False, index=df.index, columns=columns)
+
+    if exact:
+        mask = mask | values.isin(exact)
+    if prefix_tuple:
+        mask = mask | values.apply(lambda col: col.str.startswith(prefix_tuple))
+
+    return mask.any(axis=1), columns
+
+
+def any_positive_flag(df, field_ids):
+    columns = [column for field_id in field_ids for column in columns_for_field(df, field_id)]
+    if not columns:
+        return pd.Series(False, index=df.index), columns
+
+    raw = df[columns]
+    numeric = raw.apply(pd.to_numeric, errors=&quot;coerce&quot;).gt(0).fillna(False)
+    text = raw.fillna(&quot;&quot;).astype(str).apply(lambda col: col.str.strip().str.lower())
+    text_mask = text.isin({&quot;1&quot;, &quot;1.0&quot;, &quot;yes&quot;, &quot;true&quot;, &quot;y&quot;, &quot;positive&quot;, &quot;present&quot;})
+    return (numeric | text_mask).any(axis=1), columns
+
+
+df = load_table()
+id_column = first_existing(df.columns, ID_COLUMN_CANDIDATES)
+
+diagnosis_case, diagnosis_code_columns = any_matching_code(
+    df,
+    DIAGNOSIS_FIELD_IDS,
+    exact_codes=DIAGNOSIS_EXACT_CODES,
+    prefixes=DIAGNOSIS_PREFIXES,
+)
+
+procedure_case, procedure_code_columns = any_matching_code(
+    df,
+    PROCEDURE_FIELD_IDS,
+    exact_codes=PROCEDURE_EXACT_CODES,
+    prefixes=PROCEDURE_PREFIXES,
+)
+
+diagnosis_date, diagnosis_date_columns = first_datetime(df, DIAGNOSIS_DATE_FIELD_IDS)
+diagnosis_specific_date, diagnosis_specific_date_columns = first_datetime(
+    df, DIAGNOSIS_SPECIFIC_DATE_FIELD_IDS
+)
+diagnosis_year, diagnosis_year_columns = first_numeric(df, DIAGNOSIS_YEAR_FIELD_IDS)
+procedure_date, procedure_date_columns = first_datetime(df, PROCEDURE_DATE_FIELD_IDS)
+diagnosis_age, diagnosis_age_columns = first_numeric(df, DIAGNOSIS_AGE_FIELD_IDS)
+birth_year, birth_year_columns = first_numeric(df, BIRTH_YEAR_FIELD_IDS)
+recruitment_date, recruitment_date_columns = first_datetime(df, RECRUITMENT_DATE_FIELD_IDS)
+recruitment_age, recruitment_age_columns = first_numeric(df, RECRUITMENT_AGE_FIELD_IDS)
+measurement_value, measurement_value_columns = first_numeric(df, MEASUREMENT_FIELD_IDS)
+measurement_date, measurement_date_columns = first_datetime(df, MEASUREMENT_DATE_FIELD_IDS)
+measurement_support_columns = [
+    column
+    for field_id in MEASUREMENT_SUPPORT_FIELD_IDS
+    for column in columns_for_field(df, field_id)
+]
+
+primary_diagnosis_date = diagnosis_specific_date.combine_first(diagnosis_date)
+derived_age_from_date = primary_diagnosis_date.dt.year - birth_year
+derived_age_from_year = diagnosis_year - birth_year
+age_at_diagnosis = diagnosis_age.combine_first(derived_age_from_date).combine_first(derived_age_from_year)
+
+if not diagnosis_case.any() and not (DIAGNOSIS_EXACT_CODES or DIAGNOSIS_PREFIXES):
+    diagnosis_case = diagnosis_specific_date.notna()
+
+if AGE_LIMIT is None:
+    age_mask = pd.Series(True, index=df.index)
+else:
+    age_mask = age_at_diagnosis.lt(AGE_LIMIT)
+
+if MEASUREMENT_CONSTRAINT_VALUE is None:
+    measurement_mask = pd.Series(True, index=df.index)
+else:
+    measurement_mask = measurement_value.notna()
+    if MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&gt;&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.gt(MEASUREMENT_CONSTRAINT_VALUE)
+    elif MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&gt;=&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.ge(MEASUREMENT_CONSTRAINT_VALUE)
+    elif MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&lt;&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.lt(MEASUREMENT_CONSTRAINT_VALUE)
+    elif MEASUREMENT_CONSTRAINT_OPERATOR == &quot;&lt;=&quot;:
+        measurement_mask = measurement_mask &amp; measurement_value.le(MEASUREMENT_CONSTRAINT_VALUE)
+    else:
+        raise ValueError(&quot;Unsupported measurement operator: %r&quot; % (MEASUREMENT_CONSTRAINT_OPERATOR,))
+
+if CONDITION_RULES:
+    summary_values = {&quot;n_total&quot;: len(df)}
+    condition_masks = []
+    condition_selected_columns = []
+    condition_outputs = []
+
+    for index, rule in enumerate(CONDITION_RULES, start=1):
+        condition_code_mask, condition_code_columns = any_matching_code(
+            df,
+            rule.get(&quot;diagnosis_field_ids&quot;, []),
+            exact_codes=rule.get(&quot;exact_codes&quot;, ()),
+            prefixes=rule.get(&quot;prefixes&quot;, ()),
+        )
+        condition_anchor_mask, condition_anchor_columns = any_positive_flag(
+            df,
+            rule.get(&quot;anchor_field_ids&quot;, []),
+        )
+        condition_date, condition_date_columns = first_datetime(
+            df,
+            rule.get(&quot;date_field_ids&quot;, []),
+        )
+        condition_age, condition_age_columns = first_numeric(
+            df,
+            rule.get(&quot;age_field_ids&quot;, []),
+        )
+
+        condition_case = (
+            condition_code_mask
+            | condition_anchor_mask
+            | condition_date.notna()
+            | condition_age.notna()
+        )
+
+        relation = str(rule.get(&quot;relation&quot;, &quot;&quot;)).strip()
+        if relation == &quot;on_or_before_recruitment&quot;:
+            condition_temporal_mask = (
+                (condition_date.notna() &amp; recruitment_date.notna() &amp; condition_date.le(recruitment_date))
+                | (condition_age.notna() &amp; recruitment_age.notna() &amp; condition_age.le(recruitment_age))
+            )
+        elif relation == &quot;after_recruitment&quot;:
+            condition_temporal_mask = (
+                (condition_date.notna() &amp; recruitment_date.notna() &amp; condition_date.gt(recruitment_date))
+                | (condition_age.notna() &amp; recruitment_age.notna() &amp; condition_age.gt(recruitment_age))
+            )
+        else:
+            condition_temporal_mask = pd.Series(True, index=df.index)
+
+        if relation in {&quot;on_or_before_recruitment&quot;, &quot;after_recruitment&quot;} and not (
+            condition_date.notna().any() or condition_age.notna().any()
+        ):
+            print(&quot;Warning: no usable timing fields were configured for&quot;, rule.get(&quot;label&quot;, f&quot;condition_{index}&quot;))
+
+        label_slug = str(rule.get(&quot;slug&quot;) or f&quot;condition_{index}&quot;)
+        summary_values[f&quot;n_{label_slug}_case&quot;] = int(condition_case.sum())
+        summary_values[f&quot;n_{label_slug}_timeline_filtered&quot;] = int(
+            (condition_case &amp; condition_temporal_mask).sum()
+        )
+
+        condition_masks.append(condition_case &amp; condition_temporal_mask)
+        condition_selected_columns.extend(condition_code_columns)
+        condition_selected_columns.extend(condition_anchor_columns)
+        condition_selected_columns.extend(condition_date_columns)
+        condition_selected_columns.extend(condition_age_columns)
+        condition_outputs.append((label_slug, condition_date, condition_age))
+
+    timeline_mask = pd.Series(True, index=df.index)
+    for condition_mask in condition_masks:
+        timeline_mask = timeline_mask &amp; condition_mask
+
+    cohort_mask = timeline_mask &amp; measurement_mask
+    summary_values[&quot;n_timeline_filtered&quot;] = int(timeline_mask.sum())
+    summary_values[&quot;n_measurement_filtered&quot;] = int((timeline_mask &amp; measurement_mask).sum())
+    summary_values[&quot;n_cohort&quot;] = int(cohort_mask.sum())
+    summary = pd.Series(summary_values)
+    print(summary.to_string())
+
+    selected_columns = []
+    if id_column:
+        selected_columns.append(id_column)
+    selected_columns.extend(condition_selected_columns)
+    selected_columns.extend(birth_year_columns)
+    selected_columns.extend(recruitment_date_columns)
+    selected_columns.extend(recruitment_age_columns)
+    selected_columns.extend(measurement_value_columns)
+    selected_columns.extend(measurement_date_columns)
+    selected_columns.extend(measurement_support_columns)
+    selected_columns = list(dict.fromkeys(selected_columns))
+
+    cohort = df.loc[cohort_mask, selected_columns].copy()
+    for label_slug, condition_date, condition_age in condition_outputs:
+        if condition_date.notna().any():
+            cohort[f&quot;{label_slug}_date&quot;] = condition_date.loc[cohort_mask]
+        if condition_age.notna().any():
+            cohort[f&quot;{label_slug}_age&quot;] = condition_age.loc[cohort_mask]
+    if MEASUREMENT_CONSTRAINT_VALUE is not None:
+        cohort[&quot;measurement_value&quot;] = measurement_value.loc[cohort_mask]
+else:
+    if SEQUENCE_REQUIRED:
+        if procedure_date.notna().any() and primary_diagnosis_date.notna().any():
+            sequence_mask = (
+                procedure_date.notna()
+                &amp; primary_diagnosis_date.notna()
+                &amp; procedure_date.ge(primary_diagnosis_date)
+            )
+        else:
+            sequence_mask = pd.Series(False, index=df.index)
+            print(&quot;Warning: sequence requested but no usable procedure or diagnosis dates were configured.&quot;)
+    else:
+        sequence_mask = pd.Series(True, index=df.index)
+
+    cohort_mask = diagnosis_case &amp; age_mask &amp; measurement_mask &amp; procedure_case &amp; sequence_mask
+
+    summary = pd.Series(
+        {
+            &quot;n_total&quot;: len(df),
+            &quot;n_diagnosis_case&quot;: int(diagnosis_case.sum()),
+            &quot;n_age_filtered&quot;: int((diagnosis_case &amp; age_mask).sum()),
+            &quot;n_measurement_filtered&quot;: int((diagnosis_case &amp; age_mask &amp; measurement_mask).sum()),
+            &quot;n_procedure_case&quot;: int(procedure_case.sum()),
+            &quot;n_cohort&quot;: int(cohort_mask.sum()),
+        }
+    )
+    print(summary.to_string())
+
+    selected_columns = []
+    if id_column:
+        selected_columns.append(id_column)
+    selected_columns.extend(diagnosis_code_columns)
+    selected_columns.extend(diagnosis_date_columns)
+    selected_columns.extend(diagnosis_specific_date_columns)
+    selected_columns.extend(diagnosis_year_columns)
+    selected_columns.extend(diagnosis_age_columns)
+    selected_columns.extend(birth_year_columns)
+    selected_columns.extend(recruitment_date_columns)
+    selected_columns.extend(recruitment_age_columns)
+    selected_columns.extend(measurement_value_columns)
+    selected_columns.extend(measurement_date_columns)
+    selected_columns.extend(measurement_support_columns)
+    selected_columns.extend(procedure_code_columns)
+    selected_columns.extend(procedure_date_columns)
+    selected_columns = list(dict.fromkeys(selected_columns))
+
+    cohort = df.loc[cohort_mask, selected_columns].copy()
+    cohort[&quot;age_at_diagnosis&quot;] = age_at_diagnosis.loc[cohort_mask]
+    if MEASUREMENT_CONSTRAINT_VALUE is not None:
+        cohort[&quot;measurement_value&quot;] = measurement_value.loc[cohort_mask]
+
+output_dir = Path(&quot;results&quot;)
+output_dir.mkdir(parents=True, exist_ok=True)
+cohort.to_parquet(output_dir / &quot;people_with_crohn_s_disease_who_later_developed_a_perianal_fistula_cohort.parquet&quot;, index=False)
+summary.to_json(output_dir / &quot;people_with_crohn_s_disease_who_later_developed_a_perianal_fistula_summary.json&quot;, indent=2)
+
+print(&quot;Saved:&quot;, output_dir / &quot;people_with_crohn_s_disease_who_later_developed_a_perianal_fistula_cohort.parquet&quot;)
+print(&quot;Selected columns:&quot;, selected_columns)
+
+# Add validated OPCS or operation codes for the procedure signal before treating this as final.
+</code></pre>
+        </details>
+        
+        
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Retrieval Facets</h2>
+      </div>
+      <div class="section-body">
+        <div class="mini-grid">
+            <article class="mini-card facet-card">
+              <div class="mini-kicker">HIGH</div>
+              <h3>diagnosis anchor</h3>
+              <p>Find direct case-definition fields and code families.</p>
+              <div class="chip-row"><span class="chip chip-field">crohn&#x27;s disease developed</span><span class="chip chip-field">disease developed perianal</span><span class="chip chip-field">developed perianal fistula</span><span class="chip chip-field">crohn&#x27;s disease</span></div>
+              <div class="mini-meta">Prefers: field, code, encoding</div>
+            </article>
+            
+            <article class="mini-card facet-card">
+              <div class="mini-kicker">LOW</div>
+              <h3>supporting context</h3>
+              <p>Keep taxonomy context that helps interpret the retrieved fields.</p>
+              <div class="chip-row"><span class="chip chip-field">crohn&#x27;s disease developed</span><span class="chip chip-field">disease developed perianal</span><span class="chip chip-field">developed perianal fistula</span></div>
+              <div class="mini-meta">Prefers: encoding, category</div>
+            </article>
+            </div>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Suggested Fields</h2>
+      </div>
+      <div class="section-body">
+        <div class="mini-grid">
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F131626</div>
+              <h3>Date K50 first reported (crohn&#x27;s disease [regional enteritis])</h3>
+              <p>Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Digestive system disorders</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">lumped event dates</span>
+                <span class="chip chip-sun">score 35.48</span>
+              </div>
+              <p class="muted-copy">Date of the first occurrence of any code mapped to 3-character ICD10 K50. The code corresponds to &quot;crohn&#x27;s disease [regional enteritis]&quot;. Note that events which were apparently before birth were omitted when constructing this data field.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F131627</div>
+              <h3>Source of report of K50 (crohn&#x27;s disease [regional enteritis])</h3>
+              <p>Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Digestive system disorders</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">Source(s) of first reports of health outcomes</span>
+                <span class="chip chip-sun">score 31.40</span>
+              </div>
+              <p class="muted-copy">Source of the first code mapped to 3-character ICD10 K50, and whether this code occurs in other source(s) with the same or a later event date. The code corresponds to &quot;crohn&#x27;s disease [regional enteritis]&quot;. See R593~ for details of how...</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F26230</div>
+              <h3>Enhanced PRS for crohn&#x27;s disease (CD)</h3>
+              <p>Genomics &gt; Polygenic Risk Scores &gt; Enhanced PRS</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 31.00</span>
+              </div>
+              <p class="muted-copy">Enhanced PRS Release: Polygenic score for the trait for every participant in the UK Biobank testing set.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F26229</div>
+              <h3>Standard PRS for crohn&#x27;s disease (CD)</h3>
+              <p>Genomics &gt; Polygenic Risk Scores &gt; Standard PRS</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 30.99</span>
+              </div>
+              <p class="muted-copy">Standard PRS Release: Polygenic score for the trait for all UK Biobank participants. External GWAS training data only.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F41202</div>
+              <h3>Diagnoses - main ICD10</h3>
+              <p>Health outcomes &gt; Externally sourced health outcomes &gt; Hospital inpatient &gt; Summary Diagnoses</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">ICD10</span>
+                <span class="chip chip-sun">score 28.22</span>
+              </div>
+              <p class="muted-copy">This field is a summary of the distinct primary/main diagnosis codes a participant has had recorded across all their hospital inpatient records. Diagnoses are coded according to the International Classification of Diseases version-10...</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F34</div>
+              <h3>Year of birth</h3>
+              <p>Population characteristics &gt; Baseline characteristics</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 20.58</span>
+              </div>
+              <p class="muted-copy">Year of birth of participant. Acquired from central registry, updated by participant.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F21003</div>
+              <h3>Age when attended assessment centre</h3>
+              <p>Assessment centre &gt; Recruitment &gt; Reception</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 0.00</span>
+              </div>
+              <p class="muted-copy">This is a derived variable based on date of birth and date of attending assessment centre and refers to the age of the participant on the day they attended an Assessment Centre, truncated to whole year part.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F21022</div>
+              <h3>Age at recruitment</h3>
+              <p>Population characteristics &gt; Baseline characteristics</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 0.00</span>
+              </div>
+              <p class="muted-copy">This is a derived variable based on date of birth and date of attending an initial assessment centre and refers to the age of the participant on the day they attended an Initial Assessment Centre, truncated to whole year.</p>
+            </article>
+            
+            <article class="mini-card field-hit">
+              <div class="mini-kicker">F53</div>
+              <h3>Date of attending assessment centre</h3>
+              <p>Assessment centre &gt; Recruitment &gt; Reception</p>
+              <div class="chip-row">
+                <span class="chip chip-encoding">NOT-ENCODED</span>
+                <span class="chip chip-sun">score 0.00</span>
+              </div>
+              <p class="muted-copy">Date when a participant attended a UK Biobank assessment centre. Automatically acquired at the Reception stage.</p>
+            </article>
+            </div>
+      </div>
+    </section>
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Code Families</h2>
+      </div>
+      <div class="section-body">
+        <div class="mini-grid">
+            <article class="mini-card code-hit">
+              <div class="mini-kicker">Diagnosis prefixes</div>
+              <div class="chip-row"><span class="chip chip-code">K50*</span><span class="chip chip-code">K500*</span><span class="chip chip-code">K501*</span><span class="chip chip-code">K508*</span><span class="chip chip-code">K509*</span><span class="chip chip-code">M074*</span><span class="chip chip-code">M0743*</span><span class="chip chip-code">M0744*</span><span class="chip chip-code">M0748*</span></div>
+            </article>
+            </div>
+      </div>
+    </section>
+    
+    
+    
+    <section class="panel section-card">
+      <div class="section-heading">
+        <h2>Evidence Deck</h2>
+        <div class="toolbar" data-filter-toolbar="evidence-deck">
+        <button class="filter-button is-active" type="button" data-kind="all">
+          All
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="field">
+          Fields
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="code">
+          Codes
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="encoding">
+          Code Systems
+        </button>
+        
+        <button class="filter-button" type="button" data-kind="category">
+          Categories
+        </button>
+        </div>
+      </div>
+      <div class="evidence-grid" data-evidence-group="evidence-deck">
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">40.71</span>
+          </div>
+          <h3>Code K50 K50 Crohn&#x27;s disease [regional enteritis]</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: K50</span><span class="chip chip-code">meaning: K50 Crohn&#x27;s disease [regional enteritis]</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: K50 Meaning: K50 Crohn&#x27;s disease [regional enteritis]</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">40.13</span>
+          </div>
+          <h3>Code K508 K50.8 Other Crohn&#x27;s disease</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: K508</span><span class="chip chip-code">meaning: K50.8 Other Crohn&#x27;s disease</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: K508 Meaning: K50.8 Other Crohn&#x27;s disease</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">40.13</span>
+          </div>
+          <h3>Code K509 K50.9 Crohn&#x27;s disease, unspecified</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: K509</span><span class="chip chip-code">meaning: K50.9 Crohn&#x27;s disease, unspecified</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: K509 Meaning: K50.9 Crohn&#x27;s disease, unspecified</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.71</span>
+          </div>
+          <h3>Code K500 K50.0 Crohn&#x27;s disease of small intestine</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: K500</span><span class="chip chip-code">meaning: K50.0 Crohn&#x27;s disease of small intestine</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: K500 Meaning: K50.0 Crohn&#x27;s disease of small intestine</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.71</span>
+          </div>
+          <h3>Code K501 K50.1 Crohn&#x27;s disease of large intestine</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: K501</span><span class="chip chip-code">meaning: K50.1 Crohn&#x27;s disease of large intestine</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: K501 Meaning: K50.1 Crohn&#x27;s disease of large intestine</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.39</span>
+          </div>
+          <h3>Code M074 M07.4 Arthropathy in Crohn&#x27;s disease [regional enteritis]</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: M074</span><span class="chip chip-code">meaning: M07.4 Arthropathy in Crohn&#x27;s disease [regional enteritis]</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: M074 Meaning: M07.4 Arthropathy in Crohn&#x27;s disease [regional enteritis]</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.15</span>
+          </div>
+          <h3>Code M0743 M07.43 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Forearm)</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: M0743</span><span class="chip chip-code">meaning: M07.43 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Forearm)</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: M0743 Meaning: M07.43 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Forearm)</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.15</span>
+          </div>
+          <h3>Code M0744 M07.44 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Hand)</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: M0744</span><span class="chip chip-code">meaning: M07.44 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Hand)</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: M0744 Meaning: M07.44 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Hand)</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="code">
+          <div class="card-topline">
+            <span class="eyebrow">CODE</span>
+            <span class="score-tag">39.15</span>
+          </div>
+          <h3>Code M0748 M07.48 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Other)</h3>
+          <div class="chip-row"><span class="chip chip-code">coding_id: 19</span><span class="chip chip-code">code: M0748</span><span class="chip chip-code">meaning: M07.48 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Other)</span><span class="chip chip-code">coding_title: ICD10</span></div>
+          <p>Coding 19 (ICD10) Code: M0748 Meaning: M07.48 Arthropathy in Crohn&#x27;s disease [regional enteritis] (Other)</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">35.48</span>
+          </div>
+          <h3>Field 131626 Date K50 first reported (crohn&#x27;s disease [regional enteritis])</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 131626</span><span class="chip chip-field">title: Date K50 first reported (crohn&#x27;s disease [regional enteritis])</span><span class="chip chip-field">path: Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Digestive system disorders</span><span class="chip chip-field">encoding_id: 819</span></div>
+          <p>Field 131626: Date K50 first reported (crohn&#x27;s disease [regional enteritis]) Category path: Health outcomes &gt; Externally sourced health outcomes &gt; First occurrences &gt; Digestive system disorders Encoding: lumped event dates Units: Notes:...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">31.00</span>
+          </div>
+          <h3>Field 26230 Enhanced PRS for crohn&#x27;s disease (CD)</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 26230</span><span class="chip chip-field">title: Enhanced PRS for crohn&#x27;s disease (CD)</span><span class="chip chip-field">path: Genomics &gt; Polygenic Risk Scores &gt; Enhanced PRS</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 26230: Enhanced PRS for crohn&#x27;s disease (CD) Category path: Genomics &gt; Polygenic Risk Scores &gt; Enhanced PRS Encoding: NOT-ENCODED Units: relative risk Notes: Enhanced PRS Release: Polygenic score for the trait for every participant...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">30.99</span>
+          </div>
+          <h3>Field 26229 Standard PRS for crohn&#x27;s disease (CD)</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 26229</span><span class="chip chip-field">title: Standard PRS for crohn&#x27;s disease (CD)</span><span class="chip chip-field">path: Genomics &gt; Polygenic Risk Scores &gt; Standard PRS</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 26229: Standard PRS for crohn&#x27;s disease (CD) Category path: Genomics &gt; Polygenic Risk Scores &gt; Standard PRS Encoding: NOT-ENCODED Units: relative risk Notes: Standard PRS Release: Polygenic score for the trait for all UK Biobank...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">28.22</span>
+          </div>
+          <h3>Field 41202 Diagnoses - main ICD10</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 41202</span><span class="chip chip-field">title: Diagnoses - main ICD10</span><span class="chip chip-field">path: Health outcomes &gt; Externally sourced health outcomes &gt; Hospital inpatient &gt; Summary Diagnoses</span><span class="chip chip-field">encoding_id: 19</span></div>
+          <p>Field 41202: Diagnoses - main ICD10 Category path: Health outcomes &gt; Externally sourced health outcomes &gt; Hospital inpatient &gt; Summary Diagnoses Encoding: ICD10 Units: Notes: This field is a summary of the distinct primary/main diagnosis...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">20.58</span>
+          </div>
+          <h3>Field 34 Year of birth</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 34</span><span class="chip chip-field">title: Year of birth</span><span class="chip chip-field">path: Population characteristics &gt; Baseline characteristics</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 34: Year of birth Category path: Population characteristics &gt; Baseline characteristics Encoding: NOT-ENCODED Units: years Notes: Year of birth of participant. Acquired from central registry, updated by participant.</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">0.00</span>
+          </div>
+          <h3>Field 21003 Age when attended assessment centre</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 21003</span><span class="chip chip-field">title: Age when attended assessment centre</span><span class="chip chip-field">path: Assessment centre &gt; Recruitment &gt; Reception</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 21003: Age when attended assessment centre Category path: Assessment centre &gt; Recruitment &gt; Reception Encoding: NOT-ENCODED Units: years Notes: This is a derived variable based on date of birth and date of attending assessment...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">0.00</span>
+          </div>
+          <h3>Field 21022 Age at recruitment</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 21022</span><span class="chip chip-field">title: Age at recruitment</span><span class="chip chip-field">path: Population characteristics &gt; Baseline characteristics</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 21022: Age at recruitment Category path: Population characteristics &gt; Baseline characteristics Encoding: NOT-ENCODED Units: years Notes: This is a derived variable based on date of birth and date of attending an initial assessment...</p>
+        </article>
+        
+        <article class="evidence-card" data-evidence-card data-kind="field">
+          <div class="card-topline">
+            <span class="eyebrow">FIELD</span>
+            <span class="score-tag">0.00</span>
+          </div>
+          <h3>Field 53 Date of attending assessment centre</h3>
+          <div class="chip-row"><span class="chip chip-field">field_id: 53</span><span class="chip chip-field">title: Date of attending assessment centre</span><span class="chip chip-field">path: Assessment centre &gt; Recruitment &gt; Reception</span><span class="chip chip-field">encoding_id: 0</span></div>
+          <p>Field 53: Date of attending assessment centre Category path: Assessment centre &gt; Recruitment &gt; Reception Encoding: NOT-ENCODED Units: Notes: Date when a participant attended a UK Biobank assessment centre. Automatically acquired at the...</p>
+        </article>
+        
+      </div>
+    </section>
+    
+    
+  </main>
+  <script>
+    document.querySelectorAll("[data-filter-toolbar]").forEach(function(toolbar) {
+      var targetName = toolbar.getAttribute("data-filter-toolbar");
+      var cards = document.querySelectorAll('[data-evidence-group="' + targetName + '"] [data-evidence-card]');
+      toolbar.querySelectorAll("button").forEach(function(button) {
+        button.addEventListener("click", function() {
+          var kind = button.getAttribute("data-kind");
+          toolbar.querySelectorAll("button").forEach(function(other) {
+            other.classList.remove("is-active");
+          });
+          button.classList.add("is-active");
+          cards.forEach(function(card) {
+            var cardKind = card.getAttribute("data-kind");
+            card.hidden = kind !== "all" && cardKind !== kind;
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
